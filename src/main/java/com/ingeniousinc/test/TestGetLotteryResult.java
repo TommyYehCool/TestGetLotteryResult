@@ -14,7 +14,7 @@ import org.jsoup.select.Elements;
 public class TestGetLotteryResult {
 	private final String CONNECTION_USER_AGENT = "Mozilla/5.0";
 
-	private final int GET_DOC_TIMEOUT = 5 * 1000;
+	private final int CONNECTION_TIMEOUT = 5 * 1000;
 
 	// 新疆時時彩
 	private String URL_XJFLCP = "http://www.xjflcp.com/game/sscAnnounce";
@@ -259,6 +259,55 @@ public class TestGetLotteryResult {
 			Document doc = getDocumentWithUrl(URL_GD11XUAN5);
 
 			System.out.println("----- 連線到網址取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
+
+			Element tableOfResult = doc.select("table.dataTable").first();
+			
+			Element tbodyOfResult = tableOfResult.select("tbody[id=\"cpdata\"]").first();
+			
+			Elements trsOfResults = tbodyOfResult.select("tr");
+			
+			for (int i = 0; i < trsOfResults.size(); i++) {
+				Element trOrResult = trsOfResults.get(i);
+				
+				Elements tdsOfResult = trOrResult.select("td");
+				
+				GD11XUAN5 gd11xuan5Result = new GD11XUAN5();
+				for (int j = 0; j < tdsOfResult.size(); j++) {
+					Element tdOfResult = tdsOfResult.get(j);
+					String data = tdOfResult.text();
+					
+					switch (j) {
+						case 0:
+							gd11xuan5Result.setIssueNo(data);
+							break;
+							
+						case 2:
+						case 3:
+						case 4:
+						case 5:
+						case 6:
+							gd11xuan5Result.addLotteryNo(data);
+							break;
+							
+						case 20:
+							gd11xuan5Result.setSumOfTotal(Integer.parseInt(data));
+							break;
+							
+						case 21:
+							gd11xuan5Result.setOver(Integer.parseInt(data));
+							break;
+						
+						case 22:
+							gd11xuan5Result.setOddEvenRatio(data);
+							break;
+							
+						case 23:
+							gd11xuan5Result.setPrimeRatio(data);
+							break;
+					}
+				}
+				gd11xuan5Results.add(gd11xuan5Result);
+			}
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -268,6 +317,7 @@ public class TestGetLotteryResult {
 
 	private Document getDocumentWithUrl(String url) throws IOException {
 		Connection connection = Jsoup.connect(url);
+		connection.timeout(CONNECTION_TIMEOUT);
 		connection.userAgent(CONNECTION_USER_AGENT);
 		Document doc = connection.get();
 		return doc;

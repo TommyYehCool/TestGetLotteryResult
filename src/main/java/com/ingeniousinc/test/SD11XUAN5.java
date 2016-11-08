@@ -3,9 +3,19 @@ package com.ingeniousinc.test;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 山東11選5
+ * 
+ * @author tommy.feng
+ */
 public class SD11XUAN5 {
+	/**
+	 * 期號
+	 */
 	private String issueNo;
-	
+	/**
+	 * 開獎號碼
+	 */
 	private List<String> lotteryNos;
 	
 	public SD11XUAN5() {

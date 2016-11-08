@@ -1,14 +1,47 @@
 package com.ingeniousinc.test;
 
+/**
+ * 重慶時時彩
+ * 
+ * @author tommy.feng
+ *
+ */
 public class CQCP {
+	/**
+	 * 期號
+	 */
 	private String issueNo;
+	/**
+	 * 號碼
+	 */
 	private String lotteryNo;
+	/**
+	 * 和值
+	 */
 	private Integer sumOfTotal;
+	/**
+	 * 前三
+	 */
 	private String headerThree;
+	/**
+	 * 中三
+	 */
 	private String middleThree;
+	/**
+	 * 后三
+	 */
 	private String tailerThree;
+	/**
+	 * 后三和
+	 */
 	private Integer sumOfTailerThree;
+	/**
+	 * 后二和
+	 */
 	private Integer sumOfTailerTwo;
+	/**
+	 * 大小單双
+	 */
 	private String bigSmallOddEven;
 	
 	public CQCP() {

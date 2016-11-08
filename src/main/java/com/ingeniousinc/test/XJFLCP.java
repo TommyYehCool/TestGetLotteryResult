@@ -1,10 +1,31 @@
 package com.ingeniousinc.test;
 
+/**
+ * 新疆時時彩
+ * 
+ * @author tommy.feng
+ *
+ */
 public class XJFLCP {
+	/**
+	 * 期號
+	 */
 	private String issueNo;
+	/**
+	 * 開獎號碼
+	 */
 	private String lotteryNo;
+	/**
+	 * 個位
+	 */
 	private String digits;
+	/**
+	 * 十位
+	 */
 	private String tens;
+	/**
+	 * 后三
+	 */
 	private String tailerThree;
 	
 	public XJFLCP() {
