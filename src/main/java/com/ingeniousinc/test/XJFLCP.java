@@ -1,5 +1,8 @@
 package com.ingeniousinc.test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 新疆時時彩
  * 
@@ -14,7 +17,7 @@ public class XJFLCP {
 	/**
 	 * 開獎號碼
 	 */
-	private String lotteryNo;
+	private List<String> lotteryNos;
 	/**
 	 * 個位
 	 */
@@ -39,12 +42,15 @@ public class XJFLCP {
 		this.issueNo = issueNo;
 	}
 
-	public String getLotteryNo() {
-		return lotteryNo;
+	public List<String> getLotteryNos() {
+		return lotteryNos;
 	}
 
-	public void setLotteryNo(String lotteryNo) {
-		this.lotteryNo = lotteryNo;
+	public void addLotteryNo(String lotteryNo) {
+		if (lotteryNos == null) {
+			lotteryNos = new ArrayList<String>();
+		}
+		lotteryNos.add(lotteryNo);
 	}
 
 	public String getDigits() {
@@ -74,8 +80,9 @@ public class XJFLCP {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Xjflcp [issueNo=").append(issueNo).append(", lotteryNo=").append(lotteryNo).append(", digits=")
-				.append(digits).append(", tens=").append(tens).append(", tailerThree=").append(tailerThree).append("]");
+		builder.append("XJFLCP [issueNo=").append(issueNo).append(", lotteryNos=").append(lotteryNos)
+				.append(", digits=").append(digits).append(", tens=").append(tens).append(", tailerThree=")
+				.append(tailerThree).append("]");
 		return builder.toString();
 	}
 }

@@ -96,7 +96,10 @@ public class TestGetLotteryResult {
 							break;
 							
 						case 1:
-							xjflcpResult.setLotteryNo(data);
+							String[] splitLotteryNos = data.split(",");
+							for (String lotteryNo : splitLotteryNos) {
+								xjflcpResult.addLotteryNo(lotteryNo);
+							}
 							break;
 							
 						case 2:
@@ -165,7 +168,10 @@ public class TestGetLotteryResult {
 							
 						// 號碼
 						case 1:
-							cqcpResult.setLotteryNo(data);
+							String[] lotteryNos = data.split("-");
+							for (String lotteryNo : lotteryNos) {
+								cqcpResult.addLotteryNo(lotteryNo);
+							}
 							break;
 							
 						// 和值:

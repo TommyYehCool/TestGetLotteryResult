@@ -1,5 +1,8 @@
 package com.ingeniousinc.test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 重慶時時彩
  * 
@@ -14,7 +17,7 @@ public class CQCP {
 	/**
 	 * 號碼
 	 */
-	private String lotteryNo;
+	private List<String> lotteryNos;
 	/**
 	 * 和值
 	 */
@@ -55,12 +58,15 @@ public class CQCP {
 		this.issueNo = issueNo;
 	}
 
-	public String getLotteryNo() {
-		return lotteryNo;
+	public List<String> getLotteryNos() {
+		return lotteryNos;
 	}
 
-	public void setLotteryNo(String lotteryNo) {
-		this.lotteryNo = lotteryNo;
+	public void addLotteryNo(String lotteryNo) {
+		if (lotteryNos == null) {
+			lotteryNos = new ArrayList<String>();
+		}
+		lotteryNos.add(lotteryNo);
 	}
 
 	public Integer getSumOfTotal() {
@@ -122,7 +128,7 @@ public class CQCP {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Cqcp [issueNo=").append(issueNo).append(", lotteryNo=").append(lotteryNo)
+		builder.append("CQCP [issueNo=").append(issueNo).append(", lotteryNos=").append(lotteryNos)
 				.append(", sumOfTotal=").append(sumOfTotal).append(", headerThree=").append(headerThree)
 				.append(", middleThree=").append(middleThree).append(", tailerThree=").append(tailerThree)
 				.append(", sumOfTailerThree=").append(sumOfTailerThree).append(", sumOfTailerTwo=")
