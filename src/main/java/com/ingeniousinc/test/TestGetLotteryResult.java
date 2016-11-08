@@ -14,26 +14,28 @@ import org.jsoup.select.Elements;
 public class TestGetLotteryResult {
 	private int GET_DOC_TIMEOUT = 5 * 1000;
 
-	// 重慶時時彩
-	private String URL_CQCP = "http://www.cqcp.net/game/ssc/";
-	private List<Cqcp> cpcqResults = new ArrayList<>();
-	
 	// 新疆時時彩
 	private String URL_XJFLCP = "http://www.xjflcp.com/game/sscAnnounce";
 	private List<Xjflcp> xjflcpResults = new ArrayList<>();
 
+	// 重慶時時彩
+	private String URL_CQCP = "http://www.cqcp.net/game/ssc/";
+	private List<Cqcp> cpcqResults = new ArrayList<>();
+
 	private void start() {
-		long startTime = System.currentTimeMillis();
-		getCqcp();
-		System.out.println(">>>>> 重慶時時彩 [url: " + URL_CQCP + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
-		showResults(cpcqResults);
-		
-		System.out.println();
+		long startTime = 0;
 		
 		startTime = System.currentTimeMillis();
 		getXjflcp();
 		System.out.println(">>>>> 新疆時時彩 [url: " + URL_XJFLCP + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
 		showResults(xjflcpResults);
+		
+		System.out.println();
+
+		startTime = System.currentTimeMillis();
+		getCqcp();
+		System.out.println(">>>>> 重慶時時彩 [url: " + URL_CQCP + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
+		showResults(cpcqResults);
 	}
 
 	private void getCqcp() {
