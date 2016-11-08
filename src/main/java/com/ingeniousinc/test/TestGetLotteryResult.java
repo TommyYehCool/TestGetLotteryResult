@@ -75,15 +75,6 @@ public class TestGetLotteryResult {
 			System.out.println("----- 連線到網址:[" + URL_XJFLCP + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 
 			Element tableOfResult = doc.select("table.kj_tab").first();
-			
-			// 印出 title
-//			Element theadOfTitle = divOfResult.select("thead").first();
-//			Elements thsOfTitle = theadOfTitle.select("th");
-//			for (Element thOfTitle : thsOfTitle) {
-//				System.out.print(thOfTitle.text() + " ");
-//			}
-//			System.out.println();
-			
 			Element tbodyOfResult = tableOfResult.select("tbody").first();
 			Elements trsOfResult = tbodyOfResult.select("tr");
 			
@@ -152,14 +143,6 @@ public class TestGetLotteryResult {
 			
 			Element divOfResult = doc.select("div.ssc25").first();
 			Elements ulsOfResult = divOfResult.select("ul");
-			
-			// 印出 title
-//			Element ulOfTitle = ulsOfResult.get(0);
-//			Elements lisOfTitle = ulOfTitle.select("li");
-//			for (Element liOfTitle : lisOfTitle) {
-//				System.out.print(liOfTitle.text() + " ");
-//			}
-//			System.out.println();
 			
 			for (int i = 1; i < ulsOfResult.size(); i++) {
 				Element ulOfResult = ulsOfResult.get(i); 
