@@ -2,17 +2,19 @@ package com.ingeniousinc.test;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class TestGetLotteryResult {
-	private int GET_DOC_TIMEOUT = 5 * 1000;
+	private final String CONNECTION_USER_AGENT = "Mozilla/5.0";
+
+	private final int GET_DOC_TIMEOUT = 5 * 1000;
 
 	// 新疆時時彩
 	private String URL_XJFLCP = "http://www.xjflcp.com/game/sscAnnounce";
@@ -38,104 +40,29 @@ public class TestGetLotteryResult {
 		System.out.println(">>>>> 新疆時時彩 [url: " + URL_XJFLCP + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
 		showResults(xjflcpResults);
 		
-		System.out.println();
-
 		startTime = System.currentTimeMillis();
 		getCqcp();
 		System.out.println(">>>>> 重慶時時彩 [url: " + URL_CQCP + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
 		showResults(cpcqResults);
-	}
-
-	private void getCqcp() {
-		long startTime = 0;
-		try {
-			URL url = new URL(URL_CQCP);
-			
-			startTime = System.currentTimeMillis();
-			Document doc = Jsoup.parse(url, GET_DOC_TIMEOUT);
-			System.out.println("----- 連線到網址取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
-			
-			Element divOfResult = doc.select("div.ssc25").first();
-			Elements ulsOfResult = divOfResult.select("ul");
-			
-			// 印出 title
-//			Element ulOfTitle = ulsOfResult.get(0);
-//			Elements lisOfTitle = ulOfTitle.select("li");
-//			for (Element liOfTitle : lisOfTitle) {
-//				System.out.print(liOfTitle.text() + " ");
-//			}
-//			System.out.println();
-			
-			for (int i = 1; i < ulsOfResult.size(); i++) {
-				Element ulOfResult = ulsOfResult.get(i); 
-				Elements lisOfResult = ulOfResult.select("li");
-				
-				CQCP cqcpResult = new CQCP(); 
-				for (int j = 0; j < lisOfResult.size(); j++) {
-					Element lsOfResult = lisOfResult.get(j);
-					switch (j) {
-						// 期號
-						case 0:
-							cqcpResult.setIssueNo(lsOfResult.text());
-							break;
-							
-						// 號碼
-						case 1:
-							cqcpResult.setLotteryNo(lsOfResult.text());
-							break;
-							
-						// 和值:
-						case 2:
-							cqcpResult.setSumOfTotal(Integer.parseInt(lsOfResult.text()));
-							break;
-							
-						// 前三
-						case 3:
-							cqcpResult.setHeaderThree(lsOfResult.text());
-							break;
-							
-						// 中三
-						case 4:
-							cqcpResult.setMiddleThree(lsOfResult.text());
-							break;
-							
-						// 后三
-						case 5:
-							cqcpResult.setTailerThree(lsOfResult.text());
-							break;
-						
-						// 后三和
-						case 6:
-							cqcpResult.setSumOfTailerThree(Integer.parseInt(lsOfResult.text()));
-							break;
-							
-						// 后二和
-						case 7:
-							cqcpResult.setSumOfTailerTwo(Integer.parseInt(lsOfResult.text()));
-							break;
-							
-						// 大小單雙
-						case 8:
-							cqcpResult.setBigSmallOddEven(lsOfResult.text());
-							break;
-					}
-				}
-				cpcqResults.add(cqcpResult);
-			}
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		
+		startTime = System.currentTimeMillis();
+		getSD11XUAN5();
+		System.out.println(">>>>> 山東11選5 [url: " + URL_SD11XUAN5 + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
+		showResults(sd11xuan5Results);
+		
+		startTime = System.currentTimeMillis();
+		getGD11XUAN5();
+		System.out.println(">>>>> 廣東11選5 [url: " + URL_GD11XUAN5 + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
+		showResults(gd11xuan5Results);
 	}
 
 	private void getXjflcp() {
 		long startTime = 0;
 		try {
-			URL url = new URL(URL_XJFLCP);
-			
 			startTime = System.currentTimeMillis();
-			Document doc = Jsoup.parse(url, GET_DOC_TIMEOUT);
+			
+			Document doc = getDocumentWithUrl(URL_XJFLCP);
+			
 			System.out.println("----- 連線到網址取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 
 			Element divOfResult = doc.select("table.kj_tab").first();
@@ -202,10 +129,155 @@ public class TestGetLotteryResult {
 		}
 	}
 
+	private void getCqcp() {
+		long startTime = 0;
+		try {
+			startTime = System.currentTimeMillis();
+
+			Document doc = getDocumentWithUrl(URL_CQCP);
+
+			System.out.println("----- 連線到網址取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
+			
+			Element divOfResult = doc.select("div.ssc25").first();
+			Elements ulsOfResult = divOfResult.select("ul");
+			
+			// 印出 title
+//			Element ulOfTitle = ulsOfResult.get(0);
+//			Elements lisOfTitle = ulOfTitle.select("li");
+//			for (Element liOfTitle : lisOfTitle) {
+//				System.out.print(liOfTitle.text() + " ");
+//			}
+//			System.out.println();
+			
+			for (int i = 1; i < ulsOfResult.size(); i++) {
+				Element ulOfResult = ulsOfResult.get(i); 
+				Elements lisOfResult = ulOfResult.select("li");
+				
+				CQCP cqcpResult = new CQCP(); 
+				for (int j = 0; j < lisOfResult.size(); j++) {
+					Element lsOfResult = lisOfResult.get(j);
+					String data = lsOfResult.text();
+					switch (j) {
+						// 期號
+						case 0:
+							cqcpResult.setIssueNo(data);
+							break;
+							
+						// 號碼
+						case 1:
+							cqcpResult.setLotteryNo(data);
+							break;
+							
+						// 和值:
+						case 2:
+							cqcpResult.setSumOfTotal(Integer.parseInt(data));
+							break;
+							
+						// 前三
+						case 3:
+							cqcpResult.setHeaderThree(data);
+							break;
+							
+						// 中三
+						case 4:
+							cqcpResult.setMiddleThree(data);
+							break;
+							
+						// 后三
+						case 5:
+							cqcpResult.setTailerThree(data);
+							break;
+						
+						// 后三和
+						case 6:
+							cqcpResult.setSumOfTailerThree(Integer.parseInt(data));
+							break;
+							
+						// 后二和
+						case 7:
+							cqcpResult.setSumOfTailerTwo(Integer.parseInt(data));
+							break;
+							
+						// 大小單雙
+						case 8:
+							cqcpResult.setBigSmallOddEven(data);
+							break;
+					}
+				}
+				cpcqResults.add(cqcpResult);
+			}
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void getSD11XUAN5() {
+		long startTime = 0;
+		try {
+			startTime = System.currentTimeMillis();
+
+			Document doc = getDocumentWithUrl(URL_SD11XUAN5);
+			
+			System.out.println("----- 連線到網址取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
+			
+			Element tableOfResult = doc.select("table[bgcolor=\"#006599\"]").first();
+			Elements trsOfResult = tableOfResult.select("tr");
+			
+			for (int i = 2; i < trsOfResult.size(); i++) {
+				SD11XUAN5 sd11xuan5Result = new SD11XUAN5();
+				
+				Element trOfResult = trsOfResult.get(i);
+				Elements tdsOfResult = trOfResult.select("td");
+				for (int j = 0; j < tdsOfResult.size(); j++) {
+					Element tdOfResult = tdsOfResult.get(j);
+					String data = tdOfResult.text();
+					switch (j) {
+						case 0:
+							sd11xuan5Result.setIssueNo(data);
+							break;
+							
+						default:
+							sd11xuan5Result.addLotteryNo(data);
+					}
+				}
+				sd11xuan5Results.add(sd11xuan5Result);
+			}
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void getGD11XUAN5() {
+		long startTime = 0;
+		try {
+			startTime = System.currentTimeMillis();
+
+			Document doc = getDocumentWithUrl(URL_GD11XUAN5);
+
+			System.out.println("----- 連線到網址取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private Document getDocumentWithUrl(String url) throws IOException {
+		Connection connection = Jsoup.connect(url);
+		connection.userAgent(CONNECTION_USER_AGENT);
+		Document doc = connection.get();
+		return doc;
+	}
+
 	private <T> void showResults(List<T> results) {
 		for (T result : results) {
 			System.out.println(result);
 		}
+		System.out.println();
 	}
 
 	public static void main(String[] args) {

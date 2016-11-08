@@ -1,9 +1,12 @@
 package com.ingeniousinc.test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SD11XUAN5 {
 	private String issueNo;
 	
-	private String lotteryNo;
+	private List<String> lotteryNos;
 	
 	public SD11XUAN5() {
 	}
@@ -16,18 +19,21 @@ public class SD11XUAN5 {
 		this.issueNo = issueNo;
 	}
 
-	public String getLotteryNo() {
-		return lotteryNo;
+	public List<String> getLotteryNos() {
+		return lotteryNos;
 	}
 
-	public void setLotteryNo(String lotteryNo) {
-		this.lotteryNo = lotteryNo;
+	public void addLotteryNo(String lotteryNo) {
+		if (lotteryNos == null) {
+			lotteryNos = new ArrayList<String>();
+		}
+		lotteryNos.add(lotteryNo);
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("SD11XUAN5 [issueNo=").append(issueNo).append(", lotteryNo=").append(lotteryNo).append("]");
+		builder.append("SD11XUAN5 [issueNo=").append(issueNo).append(", lotteryNos=").append(lotteryNos).append("]");
 		return builder.toString();
 	}
 }	
