@@ -15,6 +15,10 @@ public class TestGetLotteryResult {
 	private final String CONNECTION_USER_AGENT = "Mozilla/5.0";
 
 	private final int CONNECTION_TIMEOUT = 5 * 1000;
+	
+	// 天津時時彩
+	private String URL_TJSSC = "http://www.caipiaokong.com/lottery/tjssc.html";
+	private List<TJSSC> tjsscResults = new ArrayList<>();
 
 	// 新疆時時彩
 	private String URL_XJFLCP = "http://www.xjflcp.com/game/sscAnnounce";
@@ -40,29 +44,54 @@ public class TestGetLotteryResult {
 		long startTime = 0;
 		
 		startTime = System.currentTimeMillis();
-		getXjflcp();
-		System.out.println(">>>>> 新疆時時彩 [url: " + URL_XJFLCP + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
-		showResults(xjflcpResults);
+		getTJSSC();
+		System.out.println(">>>>> 天津時時彩 [url: " + URL_TJSSC + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
+		showResults(tjsscResults);
 		
-		startTime = System.currentTimeMillis();
-		getCqcp();
-		System.out.println(">>>>> 重慶時時彩 [url: " + URL_CQCP + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
-		showResults(cpcqResults);
-		
-		startTime = System.currentTimeMillis();
-		getSD11XUAN5();
-		System.out.println(">>>>> 山東11選5 [url: " + URL_SD11XUAN5 + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
-		showResults(sd11xuan5Results);
-		
-		startTime = System.currentTimeMillis();
-		getGD11XUAN5();
-		System.out.println(">>>>> 廣東11選5 [url: " + URL_GD11XUAN5 + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
-		showResults(gd11xuan5Results);
-		
-		startTime = System.currentTimeMillis();
-		getJX11XUAN5();
-		System.out.println(">>>>> 江西11選5 [url: " + URL_GD11XUAN5 + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
-		showResults(jx11xuan5Results);
+//		startTime = System.currentTimeMillis();
+//		getXjflcp();
+//		System.out.println(">>>>> 新疆時時彩 [url: " + URL_XJFLCP + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
+//		showResults(xjflcpResults);
+//		
+//		startTime = System.currentTimeMillis();
+//		getCqcp();
+//		System.out.println(">>>>> 重慶時時彩 [url: " + URL_CQCP + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
+//		showResults(cpcqResults);
+//		
+//		startTime = System.currentTimeMillis();
+//		getSD11XUAN5();
+//		System.out.println(">>>>> 山東11選5 [url: " + URL_SD11XUAN5 + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
+//		showResults(sd11xuan5Results);
+//		
+//		startTime = System.currentTimeMillis();
+//		getGD11XUAN5();
+//		System.out.println(">>>>> 廣東11選5 [url: " + URL_GD11XUAN5 + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
+//		showResults(gd11xuan5Results);
+//		
+//		startTime = System.currentTimeMillis();
+//		getJX11XUAN5();
+//		System.out.println(">>>>> 江西11選5 [url: " + URL_GD11XUAN5 + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
+//		showResults(jx11xuan5Results);
+	}
+
+	private void getTJSSC() {
+		long startTime = 0;
+		try {
+			startTime = System.currentTimeMillis();
+			
+			Document doc = getDocumentWithUrl(URL_TJSSC);
+			
+			System.out.println("----- 連線到網址:[" + URL_TJSSC + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
+
+			System.out.println(doc);
+			
+			// TODO 好像會被擋住, 請先登錄或註冊
+			
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void getXjflcp() {
