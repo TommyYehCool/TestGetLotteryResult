@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 山東11選5
+ * 江西11選5
  * 
  * @author tommy.feng
- * 
+ *
  */
-public class SD11XUAN5 {
+public class JX11XUAN5 {
 	/**
 	 * 期號
 	 */
@@ -19,9 +19,9 @@ public class SD11XUAN5 {
 	 */
 	private List<String> lotteryNos;
 	
-	public SD11XUAN5() {
+	public JX11XUAN5() {
 	}
-
+	
 	public String getIssueNo() {
 		return issueNo;
 	}
@@ -44,7 +44,7 @@ public class SD11XUAN5 {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("SD11XUAN5 [issueNo=").append(issueNo).append(", lotteryNos=").append(lotteryNos).append("]");
+		builder.append("JX11XUAN5 [issueNo=").append(issueNo).append(", lotteryNos=").append(lotteryNos).append("]");
 		return builder.toString();
 	}
-}	
+}
