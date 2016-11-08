@@ -1,13 +1,13 @@
 package com.ingeniousinc.test;
 
-public class Xjflcp {
+public class XJFLCP {
 	private String issueNo;
 	private String lotteryNo;
 	private String digits;
 	private String tens;
 	private String tailerThree;
 	
-	public Xjflcp() {
+	public XJFLCP() {
 	}
 
 	public String getIssueNo() {

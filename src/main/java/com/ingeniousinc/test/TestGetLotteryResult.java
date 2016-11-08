@@ -16,11 +16,19 @@ public class TestGetLotteryResult {
 
 	// 新疆時時彩
 	private String URL_XJFLCP = "http://www.xjflcp.com/game/sscAnnounce";
-	private List<Xjflcp> xjflcpResults = new ArrayList<>();
+	private List<XJFLCP> xjflcpResults = new ArrayList<>();
 
 	// 重慶時時彩
 	private String URL_CQCP = "http://www.cqcp.net/game/ssc/";
-	private List<Cqcp> cpcqResults = new ArrayList<>();
+	private List<CQCP> cpcqResults = new ArrayList<>();
+	
+	// 山東11選5
+	private String URL_SD11XUAN5 = "http://www.sdticai.com/find/find_syxw.asp";
+	private List<SD11XUAN5> sd11xuan5Results = new ArrayList<>();
+	
+	// 廣東11選5
+	private String URL_GD11XUAN5 = "http://trend.caipiao.163.com/gd11xuan5/";
+	private List<GD11XUAN5> gd11xuan5Results = new ArrayList<>();
 
 	private void start() {
 		long startTime = 0;
@@ -62,7 +70,7 @@ public class TestGetLotteryResult {
 				Element ulOfResult = ulsOfResult.get(i); 
 				Elements lisOfResult = ulOfResult.select("li");
 				
-				Cqcp cqcpResult = new Cqcp(); 
+				CQCP cqcpResult = new CQCP(); 
 				for (int j = 0; j < lisOfResult.size(); j++) {
 					Element lsOfResult = lisOfResult.get(j);
 					switch (j) {
@@ -145,7 +153,7 @@ public class TestGetLotteryResult {
 			
 			allDatasLoop:
 			for (Element trOfResult : trsOfResult) {
-				Xjflcp xjflcpResult = new Xjflcp();
+				XJFLCP xjflcpResult = new XJFLCP();
 				
 				Elements tdsOfResult = trOfResult.select("td");
 				for (int i = 0; i < tdsOfResult.size(); i++) {

@@ -1,6 +1,6 @@
 package com.ingeniousinc.test;
 
-public class Cqcp {
+public class CQCP {
 	private String issueNo;
 	private String lotteryNo;
 	private Integer sumOfTotal;
@@ -11,7 +11,7 @@ public class Cqcp {
 	private Integer sumOfTailerTwo;
 	private String bigSmallOddEven;
 	
-	public Cqcp() {
+	public CQCP() {
 	}
 
 	public String getIssueNo() {
