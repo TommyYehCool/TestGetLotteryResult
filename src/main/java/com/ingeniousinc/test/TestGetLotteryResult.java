@@ -45,32 +45,32 @@ public class TestGetLotteryResult {
 		
 		startTime = System.currentTimeMillis();
 		getTJSSC();
-		System.out.println(">>>>> 天津時時彩 [url: " + URL_TJSSC + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
+		System.out.println(">>>>> 天津時時彩 [" + URL_TJSSC + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
 		showResults(tjsscResults);
 		
 		startTime = System.currentTimeMillis();
 		getXjflcp();
-		System.out.println(">>>>> 新疆時時彩 [url: " + URL_XJFLCP + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
+		System.out.println(">>>>> 新疆時時彩 [" + URL_XJFLCP + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
 		showResults(xjflcpResults);
 		
 		startTime = System.currentTimeMillis();
 		getCqcp();
-		System.out.println(">>>>> 重慶時時彩 [url: " + URL_CQCP + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
+		System.out.println(">>>>> 重慶時時彩 [" + URL_CQCP + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
 		showResults(cpcqResults);
 		
 		startTime = System.currentTimeMillis();
 		getSD11XUAN5();
-		System.out.println(">>>>> 山東11選5 [url: " + URL_SD11XUAN5 + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
+		System.out.println(">>>>> 山東11選5 [" + URL_SD11XUAN5 + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
 		showResults(sd11xuan5Results);
 		
 		startTime = System.currentTimeMillis();
 		getGD11XUAN5();
-		System.out.println(">>>>> 廣東11選5 [url: " + URL_GD11XUAN5 + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
+		System.out.println(">>>>> 廣東11選5 [" + URL_GD11XUAN5 + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
 		showResults(gd11xuan5Results);
 		
 		startTime = System.currentTimeMillis();
 		getJX11XUAN5();
-		System.out.println(">>>>> 江西11選5 [url: " + URL_GD11XUAN5 + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
+		System.out.println(">>>>> 江西11選5 [" + URL_GD11XUAN5 + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
 		showResults(jx11xuan5Results);
 	}
 
@@ -83,10 +83,60 @@ public class TestGetLotteryResult {
 			
 			System.out.println("----- 連線到網址:[" + URL_TJSSC + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 
-			System.out.println(doc);
+			Element tableOfResult = doc.select("table.dt").first();
+			if (tableOfResult == null) {
+				System.err.println(doc);
+				return;
+			}
 			
-			// TODO 好像會被擋住, 請先登錄或註冊
+			Element tbodyOfResult = tableOfResult.select("tbody").first();
+			Elements trsOfResult = tbodyOfResult.select("tr");
 			
+			for (int i = 0; i < trsOfResult.size(); i++) {
+				Element trOfResult = trsOfResult.get(i);
+				
+				TJSSC tjsscResult = new TJSSC();
+				Elements tdsOfResult = trOfResult.select("td");
+				for (int j = 0; j < tdsOfResult.size(); j++) {
+					Element tdOfResult = tdsOfResult.get(j);
+					String data = tdOfResult.text();
+
+					switch (j) {
+						case 0:
+							tjsscResult.setIssueNo(data);
+							break;
+							
+						case 1:
+						case 2:
+						case 3:
+						case 4:
+						case 5:
+							tjsscResult.addLotteryNo(data);
+							break;
+							
+						case 6:
+							tjsscResult.setType(data);
+							break;
+							
+						case 7:
+							tjsscResult.setSumOf3Star(data);
+							break;
+							
+						case 8:
+							tjsscResult.setBigSmallOf2Star(data);
+							break;
+							
+						case 9:
+							tjsscResult.setOddEvenOf2Star(data);
+							break;
+							
+						case 10:
+							tjsscResult.setSumOf2Start(data);
+							break;
+					}
+				}
+				tjsscResults.add(tjsscResult);
+			}	
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -352,6 +402,10 @@ public class TestGetLotteryResult {
 			System.out.println("----- 連線到網址:[" + URL_JX11XUAN5 + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 			
 			Element tableOfResult = doc.select("table.kj-detail-table").first();
+			if (tableOfResult == null) {
+				System.err.println(doc);
+				return;
+			}
 			Element tbodyOfResult = tableOfResult.select("tbody").first();
 			
 			Elements trsOfResults = tbodyOfResult.select("tr");
