@@ -9,7 +9,7 @@ import java.util.List;
  * @author tommy.feng
  *
  */
-public class CQCP {
+public class CQSSC {
 	/**
 	 * 期號
 	 */
@@ -47,7 +47,7 @@ public class CQCP {
 	 */
 	private String bigSmallOddEven;
 	
-	public CQCP() {
+	public CQSSC() {
 	}
 
 	public String getIssueNo() {
@@ -128,7 +128,7 @@ public class CQCP {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("CQCP [issueNo=").append(issueNo).append(", lotteryNos=").append(lotteryNos)
+		builder.append("CQSSC [issueNo=").append(issueNo).append(", lotteryNos=").append(lotteryNos)
 				.append(", sumOfTotal=").append(sumOfTotal).append(", headerThree=").append(headerThree)
 				.append(", middleThree=").append(middleThree).append(", tailerThree=").append(tailerThree)
 				.append(", sumOfTailerThree=").append(sumOfTailerThree).append(", sumOfTailerTwo=")

@@ -9,7 +9,7 @@ import java.util.List;
  * @author tommy.feng
  *
  */
-public class XJFLCP {
+public class XJSSC {
 	/**
 	 * 期號
 	 */
@@ -31,7 +31,7 @@ public class XJFLCP {
 	 */
 	private String tailerThree;
 	
-	public XJFLCP() {
+	public XJSSC() {
 	}
 
 	public String getIssueNo() {
@@ -80,9 +80,9 @@ public class XJFLCP {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("XJFLCP [issueNo=").append(issueNo).append(", lotteryNos=").append(lotteryNos)
-				.append(", digits=").append(digits).append(", tens=").append(tens).append(", tailerThree=")
-				.append(tailerThree).append("]");
+		builder.append("XJSSC [issueNo=").append(issueNo).append(", lotteryNos=").append(lotteryNos).append(", digits=")
+				.append(digits).append(", tens=").append(tens).append(", tailerThree=").append(tailerThree).append("]");
 		return builder.toString();
 	}
+
 }
