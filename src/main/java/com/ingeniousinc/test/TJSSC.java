@@ -37,7 +37,7 @@ public class TJSSC {
 	/**
 	 * 2星和
 	 */
-	private String sumOf2Start;
+	private String sumOf2Star;
 	
 	public TJSSC() {
 	}
@@ -93,16 +93,12 @@ public class TJSSC {
 		this.oddEvenOf2Star = oddEvenOf2Star;
 	}
 
-	public String getSumOf2Start() {
-		return sumOf2Start;
+	public String getSumOf2Star() {
+		return sumOf2Star;
 	}
 
-	public void setSumOf2Start(String sumOf2Start) {
-		this.sumOf2Start = sumOf2Start;
-	}
-
-	public void setLotteryNos(List<String> lotteryNos) {
-		this.lotteryNos = lotteryNos;
+	public void setSumOf2Star(String sumOf2Star) {
+		this.sumOf2Star = sumOf2Star;
 	}
 
 	@Override
@@ -110,8 +106,8 @@ public class TJSSC {
 		StringBuilder builder = new StringBuilder();
 		builder.append("TJSSC [issueNo=").append(issueNo).append(", lotteryNos=").append(lotteryNos).append(", type=")
 				.append(type).append(", sumOf3Star=").append(sumOf3Star).append(", bigSmallOf2Star=")
-				.append(bigSmallOf2Star).append(", oddEvenOf2Star=").append(oddEvenOf2Star).append(", sumOf2Start=")
-				.append(sumOf2Start).append("]");
+				.append(bigSmallOf2Star).append(", oddEvenOf2Star=").append(oddEvenOf2Star).append(", sumOf2Star=")
+				.append(sumOf2Star).append("]");
 		return builder.toString();
 	}
 

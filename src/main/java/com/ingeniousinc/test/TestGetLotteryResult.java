@@ -102,9 +102,9 @@ public class TestGetLotteryResult {
 			Elements trsOfResult = tbodyOfResult.select("tr");
 			
 			for (int i = 1; i < trsOfResult.size(); i++) {
-				Element trOfResult = trsOfResult.get(i);
-				
 				TJSSC tjsscResult = new TJSSC();
+
+				Element trOfResult = trsOfResult.get(i);
 				Elements tdsOfResult = trOfResult.select("td");
 				for (int j = 0; j < tdsOfResult.size(); j++) {
 					Element tdOfResult = tdsOfResult.get(j);
@@ -140,7 +140,7 @@ public class TestGetLotteryResult {
 							break;
 							
 						case 10:
-							tjsscResult.setSumOf2Start(data);
+							tjsscResult.setSumOf2Star(data);
 							break;
 					}
 				}
@@ -167,9 +167,9 @@ public class TestGetLotteryResult {
 			Elements trsOfResult = tbodyOfResult.select("tr");
 			
 			for (int i = 1; i < trsOfResult.size(); i++) {
-				Element trOfResult = trsOfResult.get(i);
-				
 				TJSSC tjsscResult = new TJSSC();
+
+				Element trOfResult = trsOfResult.get(i);
 				Elements tdsOfResult = trOfResult.select("td");
 				for (int j = 0; j < tdsOfResult.size(); j++) {
 					Element tdOfResult = tdsOfResult.get(j);
@@ -218,11 +218,11 @@ public class TestGetLotteryResult {
 				Elements tdsOfResult = trOfResult.select("td");
 				for (int i = 0; i < tdsOfResult.size(); i++) {
 					Element tdOfResult = tdsOfResult.get(i);
-
 					String data = tdOfResult.text();
 					if (data.equals("--")) {
 						break allDatasLoop;
 					}
+
 					switch (i) {
 						case 0:
 							xjflcpResult.setIssueNo(data);
@@ -277,10 +277,10 @@ public class TestGetLotteryResult {
 			Elements ulsOfResult = divOfResult.select("ul");
 			
 			for (int i = 1; i < ulsOfResult.size(); i++) {
+				CQCP cqcpResult = new CQCP();
+
 				Element ulOfResult = ulsOfResult.get(i); 
 				Elements lisOfResult = ulOfResult.select("li");
-				
-				CQCP cqcpResult = new CQCP(); 
 				for (int j = 0; j < lisOfResult.size(); j++) {
 					Element lsOfResult = lisOfResult.get(j);
 					String data = lsOfResult.text();
@@ -395,11 +395,10 @@ public class TestGetLotteryResult {
 			Elements trsOfResults = tbodyOfResult.select("tr");
 			
 			for (int i = 0; i < trsOfResults.size(); i++) {
-				Element trOrResult = trsOfResults.get(i);
-				
-				Elements tdsOfResult = trOrResult.select("td");
-				
 				GD11XUAN5 gd11xuan5Result = new GD11XUAN5();
+				
+				Element trOrResult = trsOfResults.get(i);
+				Elements tdsOfResult = trOrResult.select("td");
 				for (int j = 0; j < tdsOfResult.size(); j++) {
 					Element tdOfResult = tdsOfResult.get(j);
 					String data = tdOfResult.text();
@@ -458,8 +457,8 @@ public class TestGetLotteryResult {
 				return;
 			}
 			Element tbodyOfResult = tableOfResult.select("tbody").first();
-			
 			Elements trsOfResults = tbodyOfResult.select("tr");
+
 			for (int i = 1; i < trsOfResults.size(); i++) {
 				JX11XUAN5 jx11xuan5Result = new JX11XUAN5();
 				
