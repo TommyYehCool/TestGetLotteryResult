@@ -145,11 +145,11 @@ public class TestGetLotteryResult {
 
 		startTime = System.currentTimeMillis();
 		getSSCFromCaipiaokong(TJSSC.class, NAME_TJSSC_C, URL_TJSSC_C, tjssc_C);
-		System.out.println(">>>>> " + NAME_TJSSC_C + " [" + URL_TJSSC_C + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
+		System.out.println(">>>>> " + NAME_TJSSC_C + " [" + URL_TJSSC_C + "], 取得中獎號碼, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 
 		startTime = System.currentTimeMillis();
 		getTJSSC_D();
-		System.out.println(">>>>> " + NAME_TJSSC_D + " [" + URL_TJSSC_D + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
+		System.out.println(">>>>> " + NAME_TJSSC_D + " [" + URL_TJSSC_D + "], 取得中獎號碼, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 	}
 	
 	private void processXJSSC() {
@@ -157,15 +157,15 @@ public class TestGetLotteryResult {
 
 		startTime = System.currentTimeMillis();
 		getXJSSC_A();
-		System.out.println(">>>>> " + NAME_XJSSC_A + " [" + URL_XJSSC_A + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
+		System.out.println(">>>>> " + NAME_XJSSC_A + " [" + URL_XJSSC_A + "], 取得中獎號碼, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 		
 		startTime = System.currentTimeMillis();
 		getSSCFromCaipiaokong(XJSSC.class, NAME_XJSSC_C, URL_XJSSC_C, xjssc_C);
-		System.out.println(">>>>> " + NAME_XJSSC_C + " [" + URL_XJSSC_C + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
+		System.out.println(">>>>> " + NAME_XJSSC_C + " [" + URL_XJSSC_C + "], 取得中獎號碼, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 		
 		startTime = System.currentTimeMillis();
 		getXJSSC_D();
-		System.out.println(">>>>> " + NAME_XJSSC_D + " [" + URL_XJSSC_D + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
+		System.out.println(">>>>> " + NAME_XJSSC_D + " [" + URL_XJSSC_D + "], 取得中獎號碼, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 	}
 	
 	private void processCQSSC() {
@@ -173,15 +173,15 @@ public class TestGetLotteryResult {
 
 		startTime = System.currentTimeMillis();
 		getCQSSC_A();
-		System.out.println(">>>>> " + NAME_CQSSC_A + " [" + URL_CQSSC_A + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
+		System.out.println(">>>>> " + NAME_CQSSC_A + " [" + URL_CQSSC_A + "], 取得中獎號碼, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 		
 		startTime = System.currentTimeMillis();
 		getSSCFromCaipiaokong(CQSSC.class, NAME_CQSSC_C, URL_CQSSC_C, cqssc_C);
-		System.out.println(">>>>> " + NAME_CQSSC_C + " [" + URL_CQSSC_C + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
+		System.out.println(">>>>> " + NAME_CQSSC_C + " [" + URL_CQSSC_C + "], 取得中獎號碼, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 		
 		startTime = System.currentTimeMillis();
 		getCQSSC_D();
-		System.out.println(">>>>> " + NAME_CQSSC_D + " [" + URL_CQSSC_D + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
+		System.out.println(">>>>> " + NAME_CQSSC_D + " [" + URL_CQSSC_D + "], 取得中獎號碼, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 	}
 
 	private void processSD11XUAN5() {
@@ -189,15 +189,15 @@ public class TestGetLotteryResult {
 
 		startTime = System.currentTimeMillis();
 		getSD11XUAN5_A();
-		System.out.println(">>>>> " + NAME_SD11XUAN5_A + " [" + URL_SD11XUAN5_A + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
+		System.out.println(">>>>> " + NAME_SD11XUAN5_A + " [" + URL_SD11XUAN5_A + "], 取得中獎號碼, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 		
 		startTime = System.currentTimeMillis();
 		get11xuan5FromCaipiaokong(SD11XUAN5.class, NAME_SD11XUAN5_C, URL_SD11XUAN5_C, sd11xuan5_C);
-		System.out.println(">>>>> " + NAME_SD11XUAN5_C + " [" + URL_SD11XUAN5_C + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
+		System.out.println(">>>>> " + NAME_SD11XUAN5_C + " [" + URL_SD11XUAN5_C + "], 取得中獎號碼, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 
 		startTime = System.currentTimeMillis();
 		getSD11XUAN5_D();
-		System.out.println(">>>>> " + NAME_SD11XUAN5_D + " [" + URL_SD11XUAN5_D + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
+		System.out.println(">>>>> " + NAME_SD11XUAN5_D + " [" + URL_SD11XUAN5_D + "], 取得中獎號碼, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 	}
 
 	private void processGD11XUAN5() {
@@ -205,19 +205,19 @@ public class TestGetLotteryResult {
 
 		startTime = System.currentTimeMillis();
 		getGD11XUAN5_A();
-		System.out.println(">>>>> " + NAME_GD11XUAN5_A + " [" + URL_GD11XUAN5_A + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
+		System.out.println(">>>>> " + NAME_GD11XUAN5_A + " [" + URL_GD11XUAN5_A + "], 取得中獎號碼, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 		
 		startTime = System.currentTimeMillis();
 		getGD11XUAN5_B();
-		System.out.println(">>>>> " + NAME_GD11XUAN5_B + " [" + URL_GD11XUAN5_B + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
+		System.out.println(">>>>> " + NAME_GD11XUAN5_B + " [" + URL_GD11XUAN5_B + "], 取得中獎號碼, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 		
 		startTime = System.currentTimeMillis();
 		get11xuan5FromCaipiaokong(GD11XUAN5.class, NAME_GD11XUAN5_C, URL_GD11XUAN5_C, gd11xuan5_C);
-		System.out.println(">>>>> " + NAME_GD11XUAN5_C + " [" + URL_GD11XUAN5_C + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
+		System.out.println(">>>>> " + NAME_GD11XUAN5_C + " [" + URL_GD11XUAN5_C + "], 取得中獎號碼, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 		
 		startTime = System.currentTimeMillis();
 		getGD11XUAN5_D();
-		System.out.println(">>>>> " + NAME_GD11XUAN5_D + " [" + URL_GD11XUAN5_D + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
+		System.out.println(">>>>> " + NAME_GD11XUAN5_D + " [" + URL_GD11XUAN5_D + "], 取得中獎號碼, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 	}
 
 	private void processJX11XUAN5() {
@@ -225,19 +225,19 @@ public class TestGetLotteryResult {
 
 		startTime = System.currentTimeMillis();
 		getJX11XUAN5_A();
-		System.out.println(">>>>> " + NAME_JX11XUAN5_A + " [" + URL_JX11XUAN5_A + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
+		System.out.println(">>>>> " + NAME_JX11XUAN5_A + " [" + URL_JX11XUAN5_A + "], 取得中獎號碼, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 		
 		startTime = System.currentTimeMillis();
 		getJX11XUAN5_B();
-		System.out.println(">>>>> " + NAME_JX11XUAN5_B + " [" + URL_JX11XUAN5_B + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
+		System.out.println(">>>>> " + NAME_JX11XUAN5_B + " [" + URL_JX11XUAN5_B + "], 取得中獎號碼, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 		
 		startTime = System.currentTimeMillis();
 		get11xuan5FromCaipiaokong(JX11XUAN5.class, NAME_JX11XUAN5_C, URL_JX11XUAN5_C, jx11xuan5_C);
-		System.out.println(">>>>> " + NAME_JX11XUAN5_C + " [" + URL_JX11XUAN5_C + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
+		System.out.println(">>>>> " + NAME_JX11XUAN5_C + " [" + URL_JX11XUAN5_C + "], 取得中獎號碼, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 		
 		startTime = System.currentTimeMillis();
 		getJX11XUAN5_D();
-		System.out.println(">>>>> " + NAME_JX11XUAN5_D + " [" + URL_JX11XUAN5_D + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
+		System.out.println(">>>>> " + NAME_JX11XUAN5_D + " [" + URL_JX11XUAN5_D + "], 取得中獎號碼, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 	}
 
 	private void getTJSSC_C() {
@@ -247,7 +247,7 @@ public class TestGetLotteryResult {
 			
 			Document doc = getDocument(URL_TJSSC_C);
 			
-			System.out.println("----- 天津時時彩_C [" + URL_TJSSC_C + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
+			System.out.println(">>>>> 天津時時彩_C [" + URL_TJSSC_C + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 
 			Element tableOfResult = doc.select("table.dt").first();
 			if (tableOfResult == null) {
@@ -317,7 +317,7 @@ public class TestGetLotteryResult {
 			
 			Document doc = getDocument(URL_TJSSC_D);
 			
-			System.out.println("----- 天津時時彩_D [" + URL_TJSSC_D + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
+			System.out.println(">>>>> 天津時時彩_D [" + URL_TJSSC_D + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 			
 			Element tableOfResult = doc.select("table.today").first();
 			if (tableOfResult == null) {
@@ -367,7 +367,7 @@ public class TestGetLotteryResult {
 			
 			Document doc = getDocument(URL_XJSSC_A);
 			
-			System.out.println("----- 新疆時時彩_A [" + URL_XJSSC_A + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
+			System.out.println(">>>>> 新疆時時彩_A [" + URL_XJSSC_A + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 
 			Element tableOfResult = doc.select("table.kj_tab").first();
 			if (tableOfResult == null) {
@@ -438,7 +438,7 @@ public class TestGetLotteryResult {
 			
 			Document doc = getDocument(URL_XJSSC_C);
 			
-			System.out.println("----- 新疆時時彩_C [" + URL_XJSSC_C + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
+			System.out.println(">>>>> 新疆時時彩_C [" + URL_XJSSC_C + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 
 			Element tableOfResult = doc.select("table.dt").first();
 			if (tableOfResult == null) {
@@ -508,7 +508,7 @@ public class TestGetLotteryResult {
 			
 			Document doc = getDocument(URL_XJSSC_D);
 			
-			System.out.println("----- 新疆時時彩_D [" + URL_XJSSC_D + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
+			System.out.println(">>>>> 新疆時時彩_D [" + URL_XJSSC_D + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 			
 			Element tableOfResult = doc.select("table.today").first();
 			if (tableOfResult == null) {
@@ -558,7 +558,7 @@ public class TestGetLotteryResult {
 
 			Document doc = getDocument(URL_CQSSC_A);
 
-			System.out.println("----- 重慶時時彩_A [" + URL_CQSSC_A + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
+			System.out.println(">>>>> 重慶時時彩_A [" + URL_CQSSC_A + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 			
 			Element divOfResult = doc.select("div.ssc25").first();
 			if (divOfResult == null) {
@@ -633,7 +633,7 @@ public class TestGetLotteryResult {
 
 			Document doc = getDocument(URL_CQSSC_C);
 
-			System.out.println("----- 重慶時時彩_C [" + URL_CQSSC_C + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
+			System.out.println(">>>>> 重慶時時彩_C [" + URL_CQSSC_C + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 			
 			Element tableOfResult = doc.select("table.dt").first();
 			if (tableOfResult == null) {
@@ -703,7 +703,7 @@ public class TestGetLotteryResult {
 
 			Document doc = getDocument(URL_CQSSC_D);
 
-			System.out.println("----- 重慶時時彩_D [" + URL_CQSSC_D + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
+			System.out.println(">>>>> 重慶時時彩_D [" + URL_CQSSC_D + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 			
 			Element tableOfResult = doc.select("table.today").first();
 			if (tableOfResult == null) {
@@ -753,7 +753,7 @@ public class TestGetLotteryResult {
 
 			Document doc = getDocument(URL_SD11XUAN5_A);
 			
-			System.out.println("----- 山東11選5_A [" + URL_SD11XUAN5_A + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
+			System.out.println(">>>>> 山東11選5_A [" + URL_SD11XUAN5_A + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 			
 			Element tableOfResult = doc.select("table[bgcolor=\"#006599\"]").first();
 			if (tableOfResult == null) {
@@ -796,7 +796,7 @@ public class TestGetLotteryResult {
 
 			Document doc = getDocument(URL_SD11XUAN5_C);
 
-			System.out.println("----- 山東11選5_C [" + URL_SD11XUAN5_C + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
+			System.out.println(">>>>> 山東11選5_C [" + URL_SD11XUAN5_C + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 			
 			Element tableOfResult = doc.select("table.dt").first();
 			if (tableOfResult == null) {
@@ -846,7 +846,7 @@ public class TestGetLotteryResult {
 
 			Document doc = getDocument(URL_SD11XUAN5_D);
 
-			System.out.println("----- 山東11選5_D [" + URL_SD11XUAN5_D + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
+			System.out.println(">>>>> 山東11選5_D [" + URL_SD11XUAN5_D + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 			
 			Element tableOfResult = doc.select("table.today").first();
 			if (tableOfResult == null) {
@@ -896,7 +896,7 @@ public class TestGetLotteryResult {
 
 			Document doc = getDocument(URL_GD11XUAN5_A);
 
-			System.out.println("----- 廣東11選5_A [" + URL_GD11XUAN5_A + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
+			System.out.println(">>>>> 廣東11選5_A [" + URL_GD11XUAN5_A + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 
 			Element tableOfResult = doc.select("table.dataTable").first();
 			if (tableOfResult == null) {
@@ -962,7 +962,7 @@ public class TestGetLotteryResult {
 
 			Document doc = getDocument(URL_GD11XUAN5_B);
 
-			System.out.println("----- 廣東11選5_B [" + URL_GD11XUAN5_B + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
+			System.out.println(">>>>> 廣東11選5_B [" + URL_GD11XUAN5_B + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 			
 			Element divOfResults = doc.select("div.chart_table_wrapper").first();
 			if (divOfResults == null) {
@@ -1020,7 +1020,7 @@ public class TestGetLotteryResult {
 
 			Document doc = getDocument(URL_GD11XUAN5_C);
 
-			System.out.println("----- 廣東11選5_C [" + URL_GD11XUAN5_C + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
+			System.out.println(">>>>> 廣東11選5_C [" + URL_GD11XUAN5_C + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 			
 			Element tableOfResult = doc.select("table.dt").first();
 			if (tableOfResult == null) {
@@ -1070,7 +1070,7 @@ public class TestGetLotteryResult {
 
 			Document doc = getDocument(URL_GD11XUAN5_D);
 
-			System.out.println("----- 廣東11選5_D [" + URL_GD11XUAN5_D + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
+			System.out.println(">>>>> 廣東11選5_D [" + URL_GD11XUAN5_D + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 			
 			Element tableOfResult = doc.select("table.today").first();
 			if (tableOfResult == null) {
@@ -1120,7 +1120,7 @@ public class TestGetLotteryResult {
 	
 			Document doc = getDocument(URL_JX11XUAN5_A);
 	
-			System.out.println("----- 江西11選5_A [" + URL_JX11XUAN5_A + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
+			System.out.println(">>>>> 江西11選5_A [" + URL_JX11XUAN5_A + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 			
 			Element tableOfResult = doc.select("table.kj-detail-table").first();
 			if (tableOfResult == null) {
@@ -1169,7 +1169,7 @@ public class TestGetLotteryResult {
 
 			Document doc = getDocument(URL_JX11XUAN5_B);
 
-			System.out.println("----- 江西11選5_B [" + URL_JX11XUAN5_B + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
+			System.out.println(">>>>> 江西11選5_B [" + URL_JX11XUAN5_B + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 			
 			Element divOfResults = doc.select("div.chart_table_wrapper").first();
 			if (divOfResults == null) {
@@ -1227,7 +1227,7 @@ public class TestGetLotteryResult {
 
 			Document doc = getDocument(URL_JX11XUAN5_C);
 
-			System.out.println("----- 江西11選5_C [" + URL_JX11XUAN5_C + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
+			System.out.println(">>>>> 江西11選5_C [" + URL_JX11XUAN5_C + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 			
 			Element tableOfResult = doc.select("table.dt").first();
 			if (tableOfResult == null) {
@@ -1277,7 +1277,7 @@ public class TestGetLotteryResult {
 
 			Document doc = getDocument(URL_JX11XUAN5_D);
 
-			System.out.println("----- 江西11選5_D [" + URL_JX11XUAN5_D + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
+			System.out.println(">>>>> 江西11選5_D [" + URL_JX11XUAN5_D + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 			
 			Element tableOfResult = doc.select("table.today").first();
 			if (tableOfResult == null) {
@@ -1335,7 +1335,7 @@ public class TestGetLotteryResult {
 			// 這邊塞 cookie 就不會被判斷未登入或請先註冊
 			Document doc = getDocument(url, createCookieForCaipiaokong());
 			
-			System.out.println("----- " + name + " [" + url + "] 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
+			System.out.println(">>>>> " + name + " [" + url + "] 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 	
 			Element tableOfResult = doc.select("table.dt").first();
 			
@@ -1445,7 +1445,7 @@ public class TestGetLotteryResult {
 			// 這邊塞 cookie 就不會被判斷未登入或請先註冊
 			Document doc = getDocument(url, createCookieForCaipiaokong());
 	
-			System.out.println("----- " + name + " [" + url + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
+			System.out.println(">>>>> " + name + " [" + url + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 			
 			Element tableOfResult = doc.select("table.dt").first();
 
@@ -1606,7 +1606,7 @@ public class TestGetLotteryResult {
 			
 			writeResults(writer, NAME_JX11XUAN5_D, URL_JX11XUAN5_D, jx11xuan5_D);
 			
-			System.out.println("----- 結果產生完成 -----");
+			System.out.println(">>>>> 結果產生完成");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
