@@ -1,6 +1,8 @@
 package com.ingeniousinc.test;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -105,15 +107,15 @@ public class TestGetLotteryResult {
 		
 		processJX11XUAN5();
 	}
-
+	
 	private void processTJSSC() {
 		long startTime = 0;
 
 		startTime = System.currentTimeMillis();
-		getTJSSC_C();
+		getSSCFromCaipiaokong(TJSSC.class, URL_TJSSC_C, tjssc_C);
 		System.out.println(">>>>> 天津時時彩_C [" + URL_TJSSC_C + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
 		showResults(tjssc_C);
-		
+
 		startTime = System.currentTimeMillis();
 		getTJSSC_D();
 		System.out.println(">>>>> 天津時時彩_D [" + URL_TJSSC_D + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
@@ -129,7 +131,7 @@ public class TestGetLotteryResult {
 		showResults(xjssc_A);
 		
 		startTime = System.currentTimeMillis();
-		getXJSSC_C();
+		getSSCFromCaipiaokong(XJSSC.class, URL_XJSSC_C, xjssc_C);
 		System.out.println(">>>>> 新疆時時彩_C [" + URL_XJSSC_C + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
 		showResults(xjssc_C);
 		
@@ -148,7 +150,7 @@ public class TestGetLotteryResult {
 		showResults(cqssc_A);
 		
 		startTime = System.currentTimeMillis();
-		getCQSSC_C();
+		getSSCFromCaipiaokong(CQSSC.class, URL_CQSSC_C, cqssc_C);
 		System.out.println(">>>>> 重慶時時彩_C [" + URL_CQSSC_C + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
 		showResults(cqssc_C);
 		
@@ -167,10 +169,10 @@ public class TestGetLotteryResult {
 		showResults(sd11xuan5_A);
 		
 		startTime = System.currentTimeMillis();
-		getSD11XUAN5_C();
+		get11xuan5FromCaipiaokong(SD11XUAN5.class, URL_SD11XUAN5_C, sd11xuan5_C);
 		System.out.println(">>>>> 山東11選5_C [" + URL_SD11XUAN5_C + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
 		showResults(sd11xuan5_C);
-		
+
 		startTime = System.currentTimeMillis();
 		getSD11XUAN5_D();
 		System.out.println(">>>>> 山東11選5_D [" + URL_SD11XUAN5_D + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
@@ -191,7 +193,7 @@ public class TestGetLotteryResult {
 		showResults(gd11xuan5_B);
 		
 		startTime = System.currentTimeMillis();
-		getGD11XUAN5_C();
+		get11xuan5FromCaipiaokong(GD11XUAN5.class, URL_GD11XUAN5_C, gd11xuan5_C);
 		System.out.println(">>>>> 廣東11選5_C [" + URL_GD11XUAN5_C + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
 		showResults(gd11xuan5_C);
 		
@@ -215,7 +217,7 @@ public class TestGetLotteryResult {
 		showResults(jx11xuan5_B);
 		
 		startTime = System.currentTimeMillis();
-		getJX11XUAN5_C();
+		get11xuan5FromCaipiaokong(JX11XUAN5.class, URL_JX11XUAN5_C, jx11xuan5_C);
 		System.out.println(">>>>> 江西11選5_C [" + URL_JX11XUAN5_C + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
 		showResults(jx11xuan5_C);
 		
@@ -305,6 +307,11 @@ public class TestGetLotteryResult {
 			System.out.println("----- 天津時時彩_D [" + URL_TJSSC_D + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 			
 			Element tableOfResult = doc.select("table.today").first();
+			if (tableOfResult == null) {
+				System.out.println(doc);
+				return;
+			}
+			
 			Element tbodyOfResult = tableOfResult.select("tbody").first();
 			Elements trsOfResult = tbodyOfResult.select("tr");
 			
@@ -350,6 +357,11 @@ public class TestGetLotteryResult {
 			System.out.println("----- 新疆時時彩_A [" + URL_XJSSC_A + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 
 			Element tableOfResult = doc.select("table.kj_tab").first();
+			if (tableOfResult == null) {
+				System.out.println(doc);
+				return;
+			}
+			
 			Element tbodyOfResult = tableOfResult.select("tbody").first();
 			Elements trsOfResult = tbodyOfResult.select("tr");
 			
@@ -486,6 +498,10 @@ public class TestGetLotteryResult {
 			System.out.println("----- 新疆時時彩_D [" + URL_XJSSC_D + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 			
 			Element tableOfResult = doc.select("table.today").first();
+			if (tableOfResult == null) {
+				System.out.println(doc);
+				return;
+			}
 			
 			Element tbodyOfResult = tableOfResult.select("tbody").first();
 			Elements trsOfResult = tbodyOfResult.select("tr");
@@ -532,6 +548,11 @@ public class TestGetLotteryResult {
 			System.out.println("----- 重慶時時彩_A [" + URL_CQSSC_A + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 			
 			Element divOfResult = doc.select("div.ssc25").first();
+			if (divOfResult == null) {
+				System.out.println(doc);
+				return;
+			}
+			
 			Elements ulsOfResult = divOfResult.select("ul");
 			
 			for (int i = 1; i < ulsOfResult.size(); i++) {
@@ -672,6 +693,10 @@ public class TestGetLotteryResult {
 			System.out.println("----- 重慶時時彩_D [" + URL_CQSSC_D + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 			
 			Element tableOfResult = doc.select("table.today").first();
+			if (tableOfResult == null) {
+				System.out.println(doc);
+				return;
+			}
 			
 			Element tbodyOfResult = tableOfResult.select("tbody").first();
 			Elements trsOfResult = tbodyOfResult.select("tr");
@@ -718,6 +743,11 @@ public class TestGetLotteryResult {
 			System.out.println("----- 山東11選5_A [" + URL_SD11XUAN5_A + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 			
 			Element tableOfResult = doc.select("table[bgcolor=\"#006599\"]").first();
+			if (tableOfResult == null) {
+				System.out.println(doc);
+				return;
+			}
+			
 			Elements trsOfResult = tableOfResult.select("tr");
 			
 			for (int i = 2; i < trsOfResult.size(); i++) {
@@ -806,6 +836,10 @@ public class TestGetLotteryResult {
 			System.out.println("----- 山東11選5_D [" + URL_SD11XUAN5_D + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 			
 			Element tableOfResult = doc.select("table.today").first();
+			if (tableOfResult == null) {
+				System.out.println(doc);
+				return;
+			}
 			
 			Element tbodyOfResult = tableOfResult.select("tbody").first();
 			Elements trsOfResult = tbodyOfResult.select("tr");
@@ -852,6 +886,11 @@ public class TestGetLotteryResult {
 			System.out.println("----- 廣東11選5_A [" + URL_GD11XUAN5_A + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 
 			Element tableOfResult = doc.select("table.dataTable").first();
+			if (tableOfResult == null) {
+				System.out.println(doc);
+				return;
+			}
+			
 			Element tbodyOfResult = tableOfResult.select("tbody[id=\"cpdata\"]").first();
 			Elements trsOfResults = tbodyOfResult.select("tr");
 			
@@ -913,6 +952,11 @@ public class TestGetLotteryResult {
 			System.out.println("----- 廣東11選5_B [" + URL_GD11XUAN5_B + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 			
 			Element divOfResults = doc.select("div.chart_table_wrapper").first();
+			if (divOfResults == null) {
+				System.out.println(doc);
+				return;
+			}
+			
 			Element tableOfResults = divOfResults.select("table.chart_table").first();
 			Element tbodyOfResults = tableOfResults.select("tbody").first();
 			Elements trsOfResults = tbodyOfResults.select("tr");
@@ -1016,6 +1060,10 @@ public class TestGetLotteryResult {
 			System.out.println("----- 廣東11選5_D [" + URL_GD11XUAN5_D + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 			
 			Element tableOfResult = doc.select("table.today").first();
+			if (tableOfResult == null) {
+				System.out.println(doc);
+				return;
+			}
 			
 			Element tbodyOfResult = tableOfResult.select("tbody").first();
 			Elements trsOfResult = tbodyOfResult.select("tr");
@@ -1111,6 +1159,11 @@ public class TestGetLotteryResult {
 			System.out.println("----- 江西11選5_B [" + URL_JX11XUAN5_B + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 			
 			Element divOfResults = doc.select("div.chart_table_wrapper").first();
+			if (divOfResults == null) {
+				System.out.println(doc);
+				return;
+			}
+			
 			Element tableOfResults = divOfResults.select("table.chart_table").first();
 			Element tbodyOfResults = tableOfResults.select("tbody").first();
 			Elements trsOfResults = tbodyOfResults.select("tr");
@@ -1214,6 +1267,10 @@ public class TestGetLotteryResult {
 			System.out.println("----- 江西11選5_D [" + URL_JX11XUAN5_D + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 			
 			Element tableOfResult = doc.select("table.today").first();
+			if (tableOfResult == null) {
+				System.out.println(doc);
+				return;
+			}
 			
 			Element tbodyOfResult = tableOfResult.select("tbody").first();
 			Elements trsOfResult = tbodyOfResult.select("tr");
@@ -1246,6 +1303,175 @@ public class TestGetLotteryResult {
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private Class<?>[] getStringParameter() {
+		Class<?>[] paramString = new Class[1];
+		paramString[0] = String.class;
+		return paramString;
+	}
+
+	@SuppressWarnings("unchecked")
+	private void getSSCFromCaipiaokong(Class<?> clz, String url, Object resultList) {
+		long startTime = 0;
+		try {
+			startTime = System.currentTimeMillis();
+			
+			Document doc = getDocumentWithUrl(url);
+			
+			System.out.println("----- 從 [" + url + "] 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
+	
+			Element tableOfResult = doc.select("table.dt").first();
+			if (tableOfResult == null) {
+				System.out.println(doc);
+				return;
+			}
+			
+			Element tbodyOfResult = tableOfResult.select("tbody").first();
+			Elements trsOfResult = tbodyOfResult.select("tr");
+	
+			for (int i = 1; i < trsOfResult.size(); i++) {
+				Class<?> cls = Class.forName(clz.getName());
+				Object instance = cls.newInstance();
+	
+				Element trOfResult = trsOfResult.get(i);
+				Elements tdsOfResult = trOfResult.select("td");
+				for (int j = 0; j < tdsOfResult.size(); j++) {
+					Element tdOfResult = tdsOfResult.get(j);
+					String data = tdOfResult.text();
+	
+					Method method = null;
+					switch (j) {
+						case 0:
+							method = cls.getDeclaredMethod("setIssueNo", getStringParameter()); 
+							method.invoke(instance, data);
+							break;
+							
+						case 1:
+						case 2:
+						case 3:
+						case 4:
+						case 5:
+							method = cls.getDeclaredMethod("addLotteryNo", getStringParameter());
+							method.invoke(instance, data);
+							break;
+							
+						case 6:
+							method = cls.getDeclaredMethod("setType", getStringParameter());
+							method.invoke(instance, data);
+							break;
+							
+						case 7:
+							method = cls.getDeclaredMethod("setSumOf3Star", getStringParameter());
+							method.invoke(instance, data);
+							break;
+							
+						case 8:
+							method = cls.getDeclaredMethod("setBigSmallOf2Star", getStringParameter());
+							method.invoke(instance, data);
+							break;
+							
+						case 9:
+							method = cls.getDeclaredMethod("setOddEvenOf2Star", getStringParameter());
+							method.invoke(instance, data);
+							break;
+							
+						case 10:
+							method = cls.getDeclaredMethod("setSumOf2Star", getStringParameter());
+							method.invoke(instance, data);
+							break;
+					}
+				}
+				((List<Object>) resultList).add(instance);
+			}
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	private void get11xuan5FromCaipiaokong(Class<?> clz, String url, Object resultList) {
+		long startTime = 0;
+		try {
+			startTime = System.currentTimeMillis();
+	
+			Document doc = getDocumentWithUrl(url);
+	
+			System.out.println("----- 從 [" + url + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
+			
+			Element tableOfResult = doc.select("table.dt").first();
+			if (tableOfResult == null) {
+				System.out.println(doc);
+				return;
+			}
+			
+			Element tbodyOfResult = tableOfResult.select("tbody").first();
+			Elements trsOfResult = tbodyOfResult.select("tr");
+			
+			for (int i = 1; i < trsOfResult.size(); i++) {
+				Class<?> cls = Class.forName(clz.getName());
+				Object instance = cls.newInstance();
+	
+				Element trOfResult = trsOfResult.get(i);
+				Elements tdsOfResult = trOfResult.select("td");
+				for (int j = 0; j < tdsOfResult.size(); j++) {
+					Element tdOfResult = tdsOfResult.get(j);
+					String data = tdOfResult.text();
+	
+					Method method = null;
+					switch (j) {
+						case 0:
+							method = cls.getDeclaredMethod("setIssueNo", getStringParameter()); 
+							method.invoke(instance, data);
+							break;
+							
+						case 1:
+						case 2:
+						case 3:
+						case 4:
+						case 5:
+							method = cls.getDeclaredMethod("addLotteryNo", getStringParameter()); 
+							method.invoke(instance, data);
+							break;
+					}
+				}
+				((List<Object>) resultList).add(instance);
+			}
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
 			e.printStackTrace();
 		}
 	}
