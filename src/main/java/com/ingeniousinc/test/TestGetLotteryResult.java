@@ -1528,9 +1528,10 @@ public class TestGetLotteryResult {
 		cookie.put("caipiaokong_4891_caipiaokong_ySn", "1");
 		cookie.put("aliyungf_tc", "AQAAACukZw30uQEAH7P7PP7uow8Wx4Gz");
 		cookie.put("acw_tc", "AQAAAF4GchnofwIAH7P7PBo1BeMPzy0e");
+		cookie.put("caipiaokong_4891_caipiaokong_ZXC", "1");
+		cookie.put("caipiaokong_4891_lastact", "1478768045%09index.php%09tjssc");
 		cookie.put("Hm_lvt_1fa650cb7d8eae53d0e6fbd8aec3eb67", "1478598245,1478741515");
-		cookie.put("Hm_lpvt_1fa650cb7d8eae53d0e6fbd8aec3eb67", "1478763467");
-		cookie.put("caipiaokong_4891_lastact", "1478763479%09index.php%09tjssc");
+		cookie.put("Hm_lpvt_1fa650cb7d8eae53d0e6fbd8aec3eb67", "1478768047");
 		return cookie;
 	}
 
