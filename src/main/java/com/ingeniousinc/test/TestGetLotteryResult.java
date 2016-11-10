@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -303,8 +302,6 @@ public class TestGetLotteryResult {
 				}
 				tjssc_C.add(tjsscResult);
 			}	
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -353,8 +350,6 @@ public class TestGetLotteryResult {
 				}
 				tjssc_D.add(tjsscResult);
 			}
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -424,8 +419,6 @@ public class TestGetLotteryResult {
 				}
 				xjssc_A.add(xjflcpResult);
 			}
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -494,8 +487,6 @@ public class TestGetLotteryResult {
 				}
 				xjssc_C.add(xjsscResult);
 			}	
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -544,8 +535,6 @@ public class TestGetLotteryResult {
 				}
 				xjssc_D.add(xjsscResult);
 			}	
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -619,8 +608,6 @@ public class TestGetLotteryResult {
 				}
 				cqssc_A.add(cqsscResult);
 			}
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -689,8 +676,6 @@ public class TestGetLotteryResult {
 				}
 				cqssc_C.add(cqsscResult);
 			}
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -739,8 +724,6 @@ public class TestGetLotteryResult {
 				}
 				cqssc_D.add(cqsscResult);
 			}	
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -782,8 +765,6 @@ public class TestGetLotteryResult {
 				}
 				sd11xuan5_A.add(sd11xuan5Result);
 			}
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -832,8 +813,6 @@ public class TestGetLotteryResult {
 				}
 				sd11xuan5_C.add(sd11xuan5Result);
 			}
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -882,8 +861,6 @@ public class TestGetLotteryResult {
 				}
 				sd11xuan5_D.add(sd11xuan5Result);
 			}	
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -948,8 +925,6 @@ public class TestGetLotteryResult {
 				}
 				gd11xuan5_A.add(gd11xuan5Result);
 			}
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -1006,8 +981,6 @@ public class TestGetLotteryResult {
 				}
 				gd11xuan5_B.add(gd11xuan5Result);
 			}
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -1056,8 +1029,6 @@ public class TestGetLotteryResult {
 				}
 				gd11xuan5_C.add(gd11xuan5Result);
 			}
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -1106,8 +1077,6 @@ public class TestGetLotteryResult {
 				}
 				gd11xuan5_D.add(gd11xuan5Result);
 			}	
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -1155,8 +1124,6 @@ public class TestGetLotteryResult {
 				}
 				jx11xuan5_A.add(jx11xuan5Result);
 			}
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -1213,8 +1180,6 @@ public class TestGetLotteryResult {
 				}
 				jx11xuan5_B.add(jx11xuan5Result);
 			}
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -1263,8 +1228,6 @@ public class TestGetLotteryResult {
 				}
 				jx11xuan5_C.add(jx11xuan5Result);
 			}
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -1313,8 +1276,6 @@ public class TestGetLotteryResult {
 				}
 				jx11xuan5_D.add(jx11xuan5Result);
 			}	
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -1335,7 +1296,7 @@ public class TestGetLotteryResult {
 			// 這邊塞 cookie 就不會被判斷未登入或請先註冊
 			Document doc = getDocument(url, createCookieForCaipiaokong());
 			
-			System.out.println(">>>>> " + name + " [" + url + "] 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
+			System.out.println(">>>>> " + name + " [" + url + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 	
 			Element tableOfResult = doc.select("table.dt").first();
 			
