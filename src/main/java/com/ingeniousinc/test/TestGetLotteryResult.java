@@ -1,11 +1,16 @@
 package com.ingeniousinc.test;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -14,84 +19,109 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 public class TestGetLotteryResult {
+	private static final int RETRY_TIMES = 5;
+
+	private static final long RETRY_INTERVAL = 5 * 1000;
+
 	private final String CONNECTION_USER_AGENT = "Mozilla/5.0";
 
 	private final int CONNECTION_TIMEOUT = 5 * 1000;
 	
+	private final String OUTPUT_FILE_PATH = System.getProperty("user.home") + "\\Desktop\\result.txt";
+	
 	// 天津時時彩_C
-	private String URL_TJSSC_C = "http://www.caipiaokong.com/lottery/tjssc.html";
+	private final String NAME_TJSSC_C = "天津時時彩_C";
+	private final String URL_TJSSC_C = "http://www.caipiaokong.com/lottery/tjssc.html";
 	private List<TJSSC> tjssc_C = new ArrayList<>();
 	
 	// 天津時時彩_D
-	private String URL_TJSSC_D = "http://pub.icaile.com/tjssckjjg.php";
+	private final String NAME_TJSSC_D = "天津時時彩_D";
+	private final String URL_TJSSC_D = "http://pub.icaile.com/tjssckjjg.php";
 	private List<TJSSC> tjssc_D = new ArrayList<>();
 
 	// 新疆時時彩_A
-	private String URL_XJSSC_A = "http://www.xjflcp.com/game/sscAnnounce";
+	private final String NAME_XJSSC_A = "新疆時時彩_A";
+	private final String URL_XJSSC_A = "http://www.xjflcp.com/game/sscAnnounce";
 	private List<XJSSC> xjssc_A = new ArrayList<>();
 	
 	// 新疆時時彩_C
-	private String URL_XJSSC_C = "http://www.caipiaokong.com/lottery/xjssc.html";
+	private final String NAME_XJSSC_C = "新疆時時彩_C";
+	private final String URL_XJSSC_C = "http://www.caipiaokong.com/lottery/xjssc.html";
 	private List<XJSSC> xjssc_C = new ArrayList<>();
 	
 	// 新疆時時彩_D
-	private String URL_XJSSC_D = "http://pub.icaile.com/xjssckjjg.php";
+	private final String NAME_XJSSC_D = "新疆時時彩_D";
+	private final String URL_XJSSC_D = "http://pub.icaile.com/xjssckjjg.php";
 	private List<XJSSC> xjssc_D = new ArrayList<>();
 
 	// 重慶時時彩_A
-	private String URL_CQSSC_A = "http://www.cqcp.net/game/ssc/";
+	private final String NAME_CQSSC_A = "重慶時時彩_A";
+	private final String URL_CQSSC_A = "http://www.cqcp.net/game/ssc/";
 	private List<CQSSC> cqssc_A = new ArrayList<>();
 	
 	// 重慶時時彩_C
-	private String URL_CQSSC_C = "http://www.caipiaokong.com/lottery/cqssc.html";
+	private final String NAME_CQSSC_C = "重慶時時彩_C";
+	private final String URL_CQSSC_C = "http://www.caipiaokong.com/lottery/cqssc.html";
 	private List<CQSSC> cqssc_C = new ArrayList<>();
 	
 	// 重慶時時彩_D
-	private String URL_CQSSC_D = "http://pub.icaile.com/cqssckjjg.php";
+	private final String NAME_CQSSC_D = "重慶時時彩_D";
+	private final String URL_CQSSC_D = "http://pub.icaile.com/cqssckjjg.php";
 	private List<CQSSC> cqssc_D = new ArrayList<>();
 	
 	// 山東11選5_A
-	private String URL_SD11XUAN5_A = "http://www.sdticai.com/find/find_syxw.asp";
+	private final String NAME_SD11XUAN5_A = "山東11選5_A";
+	private final String URL_SD11XUAN5_A = "http://www.sdticai.com/find/find_syxw.asp";
 	private List<SD11XUAN5> sd11xuan5_A = new ArrayList<>();
 	
 	// 山東11選5_C
-	private String URL_SD11XUAN5_C = "http://www.caipiaokong.com/lottery/sdsyydj.html";
+	private final String NAME_SD11XUAN5_C = "山東11選5_C";
+	private final String URL_SD11XUAN5_C = "http://www.caipiaokong.com/lottery/sdsyydj.html";
 	private List<SD11XUAN5> sd11xuan5_C = new ArrayList<>();
 	
 	// 山東11選5_D
-	private String URL_SD11XUAN5_D = "http://pub.icaile.com/sd11x5kjjg.php";
+	private final String NAME_SD11XUAN5_D = "山東11選5_D";
+	private final String URL_SD11XUAN5_D = "http://pub.icaile.com/sd11x5kjjg.php";
 	private List<SD11XUAN5> sd11xuan5_D = new ArrayList<>();
 	
 	// 廣東11選5_A
-	private String URL_GD11XUAN5_A = "http://trend.caipiao.163.com/gd11xuan5/";
+	private final String NAME_GD11XUAN5_A = "廣東11選5_A";
+	private final String URL_GD11XUAN5_A = "http://trend.caipiao.163.com/gd11xuan5/";
 	private List<GD11XUAN5> gd11xuan5_A = new ArrayList<>();
 	
 	// 廣東11選5_B
-	private String URL_GD11XUAN5_B = "http://trend.baidu.lecai.com/gd11x5/";
+	private final String NAME_GD11XUAN5_B = "廣東11選5_B";
+	private final String URL_GD11XUAN5_B = "http://trend.baidu.lecai.com/gd11x5/";
 	private List<GD11XUAN5> gd11xuan5_B = new ArrayList<>();
 	
 	// 廣東11選5_C
-	private String URL_GD11XUAN5_C = "http://www.caipiaokong.com/lottery/gdsyxw.html";
+	private final String NAME_GD11XUAN5_C = "廣東11選5_C";
+	private final String URL_GD11XUAN5_C = "http://www.caipiaokong.com/lottery/gdsyxw.html";
 	private List<GD11XUAN5> gd11xuan5_C = new ArrayList<>();
 	
 	// 廣東11選5_D
-	private String URL_GD11XUAN5_D = "http://pub.icaile.com/gd11x5kjjg.php#from=zx";
+	private final String NAME_GD11XUAN5_D = "廣東11選5_D";
+	private final String URL_GD11XUAN5_D = "http://pub.icaile.com/gd11x5kjjg.php#from=zx";
 	private List<GD11XUAN5> gd11xuan5_D = new ArrayList<>();
 	
 	// 江西11選5_A
-	private String URL_JX11XUAN5_A = "http://fx.cp2y.com/jx11x5kj/";
+	private final String NAME_JX11XUAN5_A = "江西11選5_A";
+	private final String URL_JX11XUAN5_A = "http://fx.cp2y.com/jx11x5kj/";
 	private List<JX11XUAN5> jx11xuan5_A = new ArrayList<>();
 	
 	// 江西11選5_B
-	private String URL_JX11XUAN5_B = "http://trend.baidu.lecai.com/jx11x5/";
+	private final String NAME_JX11XUAN5_B = "江西11選5_B";
+	private final String URL_JX11XUAN5_B = "http://trend.baidu.lecai.com/jx11x5/";
 	private List<JX11XUAN5> jx11xuan5_B = new ArrayList<>();
 	
 	// 江西11選5_C
-	private String URL_JX11XUAN5_C = "http://www.caipiaokong.com/lottery/jxsyxw.html";
+	private final String NAME_JX11XUAN5_C = "江西11選5_C";
+	private final String URL_JX11XUAN5_C = "http://www.caipiaokong.com/lottery/jxsyxw.html";
 	private List<JX11XUAN5> jx11xuan5_C = new ArrayList<>();
 	
 	// 江西11選5_D
-	private String URL_JX11XUAN5_D = "http://pub.icaile.com/jx11x5kjjg.php";
+	private final String NAME_JX11XUAN5_D = "江西11選5_D";
+	private final String URL_JX11XUAN5_D = "http://pub.icaile.com/jx11x5kjjg.php";
 	private List<JX11XUAN5> jx11xuan5_D = new ArrayList<>();
 
 	private void start() {
@@ -106,20 +136,20 @@ public class TestGetLotteryResult {
 		processGD11XUAN5();
 		
 		processJX11XUAN5();
+		
+		outputResults();
 	}
 	
 	private void processTJSSC() {
 		long startTime = 0;
 
 		startTime = System.currentTimeMillis();
-		getSSCFromCaipiaokong(TJSSC.class, URL_TJSSC_C, tjssc_C);
-		System.out.println(">>>>> 天津時時彩_C [" + URL_TJSSC_C + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
-		showResults(tjssc_C);
+		getSSCFromCaipiaokong(TJSSC.class, NAME_TJSSC_C, URL_TJSSC_C, tjssc_C);
+		System.out.println(">>>>> " + NAME_TJSSC_C + " [" + URL_TJSSC_C + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
 
 		startTime = System.currentTimeMillis();
 		getTJSSC_D();
-		System.out.println(">>>>> 天津時時彩_D [" + URL_TJSSC_D + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
-		showResults(tjssc_D);
+		System.out.println(">>>>> " + NAME_TJSSC_D + " [" + URL_TJSSC_D + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
 	}
 	
 	private void processXJSSC() {
@@ -127,18 +157,15 @@ public class TestGetLotteryResult {
 
 		startTime = System.currentTimeMillis();
 		getXJSSC_A();
-		System.out.println(">>>>> 新疆時時彩_A [" + URL_XJSSC_A + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
-		showResults(xjssc_A);
+		System.out.println(">>>>> " + NAME_XJSSC_A + " [" + URL_XJSSC_A + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
 		
 		startTime = System.currentTimeMillis();
-		getSSCFromCaipiaokong(XJSSC.class, URL_XJSSC_C, xjssc_C);
-		System.out.println(">>>>> 新疆時時彩_C [" + URL_XJSSC_C + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
-		showResults(xjssc_C);
+		getSSCFromCaipiaokong(XJSSC.class, NAME_XJSSC_C, URL_XJSSC_C, xjssc_C);
+		System.out.println(">>>>> " + NAME_XJSSC_C + " [" + URL_XJSSC_C + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
 		
 		startTime = System.currentTimeMillis();
 		getXJSSC_D();
-		System.out.println(">>>>> 新疆時時彩_D [" + URL_XJSSC_D + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
-		showResults(xjssc_D);
+		System.out.println(">>>>> " + NAME_XJSSC_D + " [" + URL_XJSSC_D + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
 	}
 	
 	private void processCQSSC() {
@@ -146,18 +173,15 @@ public class TestGetLotteryResult {
 
 		startTime = System.currentTimeMillis();
 		getCQSSC_A();
-		System.out.println(">>>>> 重慶時時彩_A [" + URL_CQSSC_A + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
-		showResults(cqssc_A);
+		System.out.println(">>>>> " + NAME_CQSSC_A + " [" + URL_CQSSC_A + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
 		
 		startTime = System.currentTimeMillis();
-		getSSCFromCaipiaokong(CQSSC.class, URL_CQSSC_C, cqssc_C);
-		System.out.println(">>>>> 重慶時時彩_C [" + URL_CQSSC_C + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
-		showResults(cqssc_C);
+		getSSCFromCaipiaokong(CQSSC.class, NAME_CQSSC_C, URL_CQSSC_C, cqssc_C);
+		System.out.println(">>>>> " + NAME_CQSSC_C + " [" + URL_CQSSC_C + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
 		
 		startTime = System.currentTimeMillis();
 		getCQSSC_D();
-		System.out.println(">>>>> 重慶時時彩_D [" + URL_CQSSC_D + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
-		showResults(cqssc_D);
+		System.out.println(">>>>> " + NAME_CQSSC_D + " [" + URL_CQSSC_D + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
 	}
 
 	private void processSD11XUAN5() {
@@ -165,18 +189,15 @@ public class TestGetLotteryResult {
 
 		startTime = System.currentTimeMillis();
 		getSD11XUAN5_A();
-		System.out.println(">>>>> 山東11選5_A [" + URL_SD11XUAN5_A + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
-		showResults(sd11xuan5_A);
+		System.out.println(">>>>> " + NAME_SD11XUAN5_A + " [" + URL_SD11XUAN5_A + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
 		
 		startTime = System.currentTimeMillis();
-		get11xuan5FromCaipiaokong(SD11XUAN5.class, URL_SD11XUAN5_C, sd11xuan5_C);
-		System.out.println(">>>>> 山東11選5_C [" + URL_SD11XUAN5_C + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
-		showResults(sd11xuan5_C);
+		get11xuan5FromCaipiaokong(SD11XUAN5.class, NAME_SD11XUAN5_C, URL_SD11XUAN5_C, sd11xuan5_C);
+		System.out.println(">>>>> " + NAME_SD11XUAN5_C + " [" + URL_SD11XUAN5_C + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
 
 		startTime = System.currentTimeMillis();
 		getSD11XUAN5_D();
-		System.out.println(">>>>> 山東11選5_D [" + URL_SD11XUAN5_D + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
-		showResults(sd11xuan5_D);
+		System.out.println(">>>>> " + NAME_SD11XUAN5_D + " [" + URL_SD11XUAN5_D + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
 	}
 
 	private void processGD11XUAN5() {
@@ -184,23 +205,19 @@ public class TestGetLotteryResult {
 
 		startTime = System.currentTimeMillis();
 		getGD11XUAN5_A();
-		System.out.println(">>>>> 廣東11選5_A [" + URL_GD11XUAN5_A + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
-		showResults(gd11xuan5_A);
+		System.out.println(">>>>> " + NAME_GD11XUAN5_A + " [" + URL_GD11XUAN5_A + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
 		
 		startTime = System.currentTimeMillis();
 		getGD11XUAN5_B();
-		System.out.println(">>>>> 廣東11選5_B [" + URL_GD11XUAN5_B + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
-		showResults(gd11xuan5_B);
+		System.out.println(">>>>> " + NAME_GD11XUAN5_B + " [" + URL_GD11XUAN5_B + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
 		
 		startTime = System.currentTimeMillis();
-		get11xuan5FromCaipiaokong(GD11XUAN5.class, URL_GD11XUAN5_C, gd11xuan5_C);
-		System.out.println(">>>>> 廣東11選5_C [" + URL_GD11XUAN5_C + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
-		showResults(gd11xuan5_C);
+		get11xuan5FromCaipiaokong(GD11XUAN5.class, NAME_GD11XUAN5_C, URL_GD11XUAN5_C, gd11xuan5_C);
+		System.out.println(">>>>> " + NAME_GD11XUAN5_C + " [" + URL_GD11XUAN5_C + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
 		
 		startTime = System.currentTimeMillis();
 		getGD11XUAN5_D();
-		System.out.println(">>>>> 廣東11選5_D [" + URL_GD11XUAN5_D + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
-		showResults(gd11xuan5_D);
+		System.out.println(">>>>> " + NAME_GD11XUAN5_D + " [" + URL_GD11XUAN5_D + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
 	}
 
 	private void processJX11XUAN5() {
@@ -208,23 +225,19 @@ public class TestGetLotteryResult {
 
 		startTime = System.currentTimeMillis();
 		getJX11XUAN5_A();
-		System.out.println(">>>>> 江西11選5_A [" + URL_JX11XUAN5_A + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
-		showResults(jx11xuan5_A);
+		System.out.println(">>>>> " + NAME_JX11XUAN5_A + " [" + URL_JX11XUAN5_A + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
 		
 		startTime = System.currentTimeMillis();
 		getJX11XUAN5_B();
-		System.out.println(">>>>> 江西11選5_B [" + URL_JX11XUAN5_B + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
-		showResults(jx11xuan5_B);
+		System.out.println(">>>>> " + NAME_JX11XUAN5_B + " [" + URL_JX11XUAN5_B + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
 		
 		startTime = System.currentTimeMillis();
-		get11xuan5FromCaipiaokong(JX11XUAN5.class, URL_JX11XUAN5_C, jx11xuan5_C);
-		System.out.println(">>>>> 江西11選5_C [" + URL_JX11XUAN5_C + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
-		showResults(jx11xuan5_C);
+		get11xuan5FromCaipiaokong(JX11XUAN5.class, NAME_JX11XUAN5_C, URL_JX11XUAN5_C, jx11xuan5_C);
+		System.out.println(">>>>> " + NAME_JX11XUAN5_C + " [" + URL_JX11XUAN5_C + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
 		
 		startTime = System.currentTimeMillis();
 		getJX11XUAN5_D();
-		System.out.println(">>>>> 江西11選5_D [" + URL_JX11XUAN5_D + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
-		showResults(jx11xuan5_D);
+		System.out.println(">>>>> " + NAME_JX11XUAN5_D + " [" + URL_JX11XUAN5_D + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
 	}
 
 	private void getTJSSC_C() {
@@ -232,7 +245,7 @@ public class TestGetLotteryResult {
 		try {
 			startTime = System.currentTimeMillis();
 			
-			Document doc = getDocumentWithUrl(URL_TJSSC_C);
+			Document doc = getDocument(URL_TJSSC_C);
 			
 			System.out.println("----- 天津時時彩_C [" + URL_TJSSC_C + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 
@@ -302,7 +315,7 @@ public class TestGetLotteryResult {
 		try {
 			startTime = System.currentTimeMillis();
 			
-			Document doc = getDocumentWithUrl(URL_TJSSC_D);
+			Document doc = getDocument(URL_TJSSC_D);
 			
 			System.out.println("----- 天津時時彩_D [" + URL_TJSSC_D + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 			
@@ -352,7 +365,7 @@ public class TestGetLotteryResult {
 		try {
 			startTime = System.currentTimeMillis();
 			
-			Document doc = getDocumentWithUrl(URL_XJSSC_A);
+			Document doc = getDocument(URL_XJSSC_A);
 			
 			System.out.println("----- 新疆時時彩_A [" + URL_XJSSC_A + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 
@@ -423,7 +436,7 @@ public class TestGetLotteryResult {
 		try {
 			startTime = System.currentTimeMillis();
 			
-			Document doc = getDocumentWithUrl(URL_XJSSC_C);
+			Document doc = getDocument(URL_XJSSC_C);
 			
 			System.out.println("----- 新疆時時彩_C [" + URL_XJSSC_C + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 
@@ -493,7 +506,7 @@ public class TestGetLotteryResult {
 		try {
 			startTime = System.currentTimeMillis();
 			
-			Document doc = getDocumentWithUrl(URL_XJSSC_D);
+			Document doc = getDocument(URL_XJSSC_D);
 			
 			System.out.println("----- 新疆時時彩_D [" + URL_XJSSC_D + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 			
@@ -543,7 +556,7 @@ public class TestGetLotteryResult {
 		try {
 			startTime = System.currentTimeMillis();
 
-			Document doc = getDocumentWithUrl(URL_CQSSC_A);
+			Document doc = getDocument(URL_CQSSC_A);
 
 			System.out.println("----- 重慶時時彩_A [" + URL_CQSSC_A + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 			
@@ -618,7 +631,7 @@ public class TestGetLotteryResult {
 		try {
 			startTime = System.currentTimeMillis();
 
-			Document doc = getDocumentWithUrl(URL_CQSSC_C);
+			Document doc = getDocument(URL_CQSSC_C);
 
 			System.out.println("----- 重慶時時彩_C [" + URL_CQSSC_C + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 			
@@ -688,7 +701,7 @@ public class TestGetLotteryResult {
 		try {
 			startTime = System.currentTimeMillis();
 
-			Document doc = getDocumentWithUrl(URL_CQSSC_D);
+			Document doc = getDocument(URL_CQSSC_D);
 
 			System.out.println("----- 重慶時時彩_D [" + URL_CQSSC_D + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 			
@@ -738,7 +751,7 @@ public class TestGetLotteryResult {
 		try {
 			startTime = System.currentTimeMillis();
 
-			Document doc = getDocumentWithUrl(URL_SD11XUAN5_A);
+			Document doc = getDocument(URL_SD11XUAN5_A);
 			
 			System.out.println("----- 山東11選5_A [" + URL_SD11XUAN5_A + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 			
@@ -781,7 +794,7 @@ public class TestGetLotteryResult {
 		try {
 			startTime = System.currentTimeMillis();
 
-			Document doc = getDocumentWithUrl(URL_SD11XUAN5_C);
+			Document doc = getDocument(URL_SD11XUAN5_C);
 
 			System.out.println("----- 山東11選5_C [" + URL_SD11XUAN5_C + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 			
@@ -831,7 +844,7 @@ public class TestGetLotteryResult {
 		try {
 			startTime = System.currentTimeMillis();
 
-			Document doc = getDocumentWithUrl(URL_SD11XUAN5_D);
+			Document doc = getDocument(URL_SD11XUAN5_D);
 
 			System.out.println("----- 山東11選5_D [" + URL_SD11XUAN5_D + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 			
@@ -881,7 +894,7 @@ public class TestGetLotteryResult {
 		try {
 			startTime = System.currentTimeMillis();
 
-			Document doc = getDocumentWithUrl(URL_GD11XUAN5_A);
+			Document doc = getDocument(URL_GD11XUAN5_A);
 
 			System.out.println("----- 廣東11選5_A [" + URL_GD11XUAN5_A + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 
@@ -947,7 +960,7 @@ public class TestGetLotteryResult {
 		try {
 			startTime = System.currentTimeMillis();
 
-			Document doc = getDocumentWithUrl(URL_GD11XUAN5_B);
+			Document doc = getDocument(URL_GD11XUAN5_B);
 
 			System.out.println("----- 廣東11選5_B [" + URL_GD11XUAN5_B + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 			
@@ -1005,7 +1018,7 @@ public class TestGetLotteryResult {
 		try {
 			startTime = System.currentTimeMillis();
 
-			Document doc = getDocumentWithUrl(URL_GD11XUAN5_C);
+			Document doc = getDocument(URL_GD11XUAN5_C);
 
 			System.out.println("----- 廣東11選5_C [" + URL_GD11XUAN5_C + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 			
@@ -1055,7 +1068,7 @@ public class TestGetLotteryResult {
 		try {
 			startTime = System.currentTimeMillis();
 
-			Document doc = getDocumentWithUrl(URL_GD11XUAN5_D);
+			Document doc = getDocument(URL_GD11XUAN5_D);
 
 			System.out.println("----- 廣東11選5_D [" + URL_GD11XUAN5_D + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 			
@@ -1105,7 +1118,7 @@ public class TestGetLotteryResult {
 		try {
 			startTime = System.currentTimeMillis();
 	
-			Document doc = getDocumentWithUrl(URL_JX11XUAN5_A);
+			Document doc = getDocument(URL_JX11XUAN5_A);
 	
 			System.out.println("----- 江西11選5_A [" + URL_JX11XUAN5_A + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 			
@@ -1154,7 +1167,7 @@ public class TestGetLotteryResult {
 		try {
 			startTime = System.currentTimeMillis();
 
-			Document doc = getDocumentWithUrl(URL_JX11XUAN5_B);
+			Document doc = getDocument(URL_JX11XUAN5_B);
 
 			System.out.println("----- 江西11選5_B [" + URL_JX11XUAN5_B + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 			
@@ -1212,7 +1225,7 @@ public class TestGetLotteryResult {
 		try {
 			startTime = System.currentTimeMillis();
 
-			Document doc = getDocumentWithUrl(URL_JX11XUAN5_C);
+			Document doc = getDocument(URL_JX11XUAN5_C);
 
 			System.out.println("----- 江西11選5_C [" + URL_JX11XUAN5_C + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 			
@@ -1262,7 +1275,7 @@ public class TestGetLotteryResult {
 		try {
 			startTime = System.currentTimeMillis();
 
-			Document doc = getDocumentWithUrl(URL_JX11XUAN5_D);
+			Document doc = getDocument(URL_JX11XUAN5_D);
 
 			System.out.println("----- 江西11選5_D [" + URL_JX11XUAN5_D + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 			
@@ -1312,19 +1325,35 @@ public class TestGetLotteryResult {
 		paramString[0] = String.class;
 		return paramString;
 	}
-
+	
 	@SuppressWarnings("unchecked")
-	private void getSSCFromCaipiaokong(Class<?> clz, String url, Object resultList) {
+	private void getSSCFromCaipiaokong(Class<?> clz, String name, String url, Object resultList) {
 		long startTime = 0;
 		try {
 			startTime = System.currentTimeMillis();
 			
-			Document doc = getDocumentWithUrl(url);
+			// 這邊塞 cookie 就不會被判斷未登入或請先註冊
+			Document doc = getDocument(url, createCookieForCaipiaokong());
 			
-			System.out.println("----- 從 [" + url + "] 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
+			System.out.println("----- " + name + " [" + url + "] 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 	
 			Element tableOfResult = doc.select("table.dt").first();
-			if (tableOfResult == null) {
+			
+			int currentRetryTimes = 1;
+			boolean isFailed = false;
+			while (tableOfResult == null && currentRetryTimes++ <= RETRY_TIMES) {
+				System.out.println("網站偵測到未登入, 5秒後, 嘗試重新取得...");
+				try {
+					Thread.sleep(RETRY_INTERVAL);
+				} catch (InterruptedException e) {}
+				doc = getDocument(url, createCookieForCaipiaokong());
+				tableOfResult = doc.select("table.dt").first();
+				
+				isFailed = tableOfResult == null;
+			}
+			
+			if (isFailed) {
+				System.out.println("抓取失敗...");
 				System.out.println(doc);
 				return;
 			}
@@ -1408,17 +1437,33 @@ public class TestGetLotteryResult {
 	}
 
 	@SuppressWarnings("unchecked")
-	private void get11xuan5FromCaipiaokong(Class<?> clz, String url, Object resultList) {
+	private void get11xuan5FromCaipiaokong(Class<?> clz, String name, String url, Object resultList) {
 		long startTime = 0;
 		try {
 			startTime = System.currentTimeMillis();
 	
-			Document doc = getDocumentWithUrl(url);
+			// 這邊塞 cookie 就不會被判斷未登入或請先註冊
+			Document doc = getDocument(url, createCookieForCaipiaokong());
 	
-			System.out.println("----- 從 [" + url + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
+			System.out.println("----- " + name + " [" + url + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 			
 			Element tableOfResult = doc.select("table.dt").first();
-			if (tableOfResult == null) {
+
+			int currentRetryTimes = 1;
+			boolean isFailed = false;
+			while (tableOfResult == null && currentRetryTimes++ <= RETRY_TIMES) {
+				System.out.println("網站偵測到未登入, 5秒後, 嘗試重新取得...");
+				try {
+					Thread.sleep(RETRY_INTERVAL);
+				} catch (InterruptedException e) {}
+				doc = getDocument(url, createCookieForCaipiaokong());
+				tableOfResult = doc.select("table.dt").first();
+				
+				isFailed = tableOfResult == null;
+			}
+			
+			if (isFailed) {
+				System.out.println("抓取失敗...");
 				System.out.println(doc);
 				return;
 			}
@@ -1475,11 +1520,31 @@ public class TestGetLotteryResult {
 			e.printStackTrace();
 		}
 	}
+	
+	private Map<String, String> createCookieForCaipiaokong() {
+		Map<String, String> cookie = new HashMap<String, String>();
+		cookie.put("caipiaokong_4891_saltkey", "dmbgCWDB");
+		cookie.put("caipiaokong_4891_lastvisit", "1478594642");
+		cookie.put("caipiaokong_4891_caipiaokong_ySn", "1");
+		cookie.put("aliyungf_tc", "AQAAACukZw30uQEAH7P7PP7uow8Wx4Gz");
+		cookie.put("acw_tc", "AQAAAF4GchnofwIAH7P7PBo1BeMPzy0e");
+		cookie.put("Hm_lvt_1fa650cb7d8eae53d0e6fbd8aec3eb67", "1478598245,1478741515");
+		cookie.put("Hm_lpvt_1fa650cb7d8eae53d0e6fbd8aec3eb67", "1478763467");
+		cookie.put("caipiaokong_4891_lastact", "1478763479%09index.php%09tjssc");
+		return cookie;
+	}
 
-	private Document getDocumentWithUrl(String url) throws IOException {
+	private Document getDocument(String url) throws IOException {
+		return getDocument(url, null);
+	}
+
+	private Document getDocument(String url, Map<String, String> cookie) throws IOException {
 		Connection connection = Jsoup.connect(url);
 		connection.timeout(CONNECTION_TIMEOUT);
 		connection.userAgent(CONNECTION_USER_AGENT);
+		if (cookie != null) {
+			connection.cookies(cookie);
+		}
 		Document doc = connection.get();
 		return doc;
 	}
@@ -1489,6 +1554,72 @@ public class TestGetLotteryResult {
 			System.out.println(result);
 		}
 		System.out.println();
+	}
+	
+	private void outputResults() {
+		File outputFile = new File(OUTPUT_FILE_PATH);
+		
+		if (outputFile.isFile()) {
+			outputFile.delete();
+			System.out.println("刪除現有檔案: " + OUTPUT_FILE_PATH + " -> 成功");
+		}
+		
+		System.out.println(">>>>> 開始將結果寫至: " + OUTPUT_FILE_PATH);
+		
+		try (RandomAccessFile writer = new RandomAccessFile(outputFile, "rw")) {
+			writeResults(writer, NAME_TJSSC_C, URL_TJSSC_C, tjssc_C);
+			
+			writeResults(writer, NAME_TJSSC_D, URL_TJSSC_D, tjssc_D);
+
+			writeResults(writer, NAME_XJSSC_A, URL_XJSSC_A, xjssc_A);
+			
+			writeResults(writer, NAME_XJSSC_C, URL_XJSSC_C, xjssc_C);
+			
+			writeResults(writer, NAME_XJSSC_D, URL_XJSSC_D, xjssc_D);
+			
+			writeResults(writer, NAME_CQSSC_A, URL_CQSSC_A, cqssc_A);
+
+			writeResults(writer, NAME_CQSSC_C, URL_CQSSC_C, cqssc_C);
+
+			writeResults(writer, NAME_CQSSC_D, URL_CQSSC_D, cqssc_D);
+
+			writeResults(writer, NAME_SD11XUAN5_A, URL_SD11XUAN5_A, sd11xuan5_A);
+			
+			writeResults(writer, NAME_SD11XUAN5_C, URL_SD11XUAN5_C, sd11xuan5_C);
+			
+			writeResults(writer, NAME_SD11XUAN5_D, URL_SD11XUAN5_D, sd11xuan5_D);
+
+			writeResults(writer, NAME_GD11XUAN5_A, URL_GD11XUAN5_A, gd11xuan5_A);
+			
+			writeResults(writer, NAME_GD11XUAN5_B, URL_GD11XUAN5_B, gd11xuan5_B);
+			
+			writeResults(writer, NAME_GD11XUAN5_C, URL_GD11XUAN5_C, gd11xuan5_C);
+			
+			writeResults(writer, NAME_GD11XUAN5_D, URL_GD11XUAN5_D, gd11xuan5_D);
+			
+			writeResults(writer, NAME_JX11XUAN5_A, URL_JX11XUAN5_A, jx11xuan5_A);
+			
+			writeResults(writer, NAME_JX11XUAN5_B, URL_JX11XUAN5_B, jx11xuan5_B);
+			
+			writeResults(writer, NAME_JX11XUAN5_C, URL_JX11XUAN5_C, jx11xuan5_C);
+			
+			writeResults(writer, NAME_JX11XUAN5_D, URL_JX11XUAN5_D, jx11xuan5_D);
+			
+			System.out.println("----- 結果產生完成 -----");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private <T> void writeResults(RandomAccessFile writer, String name, String url, List<T> results) throws IOException {
+		writer.write((">>>>> 項目: [" + name + "], URL: [" + url + "] <<<<<\n").getBytes());
+		for (T result : results) {
+			writer.write(result.toString().getBytes());
+			writer.write("\n".getBytes());
+		}
+		writer.write("\n".getBytes());
 	}
 
 	public static void main(String[] args) {
