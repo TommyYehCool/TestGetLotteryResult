@@ -1415,8 +1415,6 @@ public class TestGetLotteryResult {
 				}
 				((List<Object>) resultList).add(instance);
 			}
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
@@ -1500,8 +1498,6 @@ public class TestGetLotteryResult {
 				}
 				((List<Object>) resultList).add(instance);
 			}
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
