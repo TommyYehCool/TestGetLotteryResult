@@ -25,24 +25,46 @@ public class TestGetLotteryResult {
 	private List<TJSSC> tjsscResults_D = new ArrayList<>();
 
 	// 新疆時時彩_A
-	private String URL_XJFLCP_A = "http://www.xjflcp.com/game/sscAnnounce";
-	private List<XJSSC> xjflcpResults_A = new ArrayList<>();
+	private String URL_XJSSC_A = "http://www.xjflcp.com/game/sscAnnounce";
+	private List<XJSSC> xjsscResults_A = new ArrayList<>();
+	
+	// 新疆時時彩_C
+	private String URL_XJSSC_C = "http://www.caipiaokong.com/lottery/xjssc.html";
+	private List<XJSSC> xjsscResults_C = new ArrayList<>();
+	
+	// TODO 新疆時時彩_D
 
 	// 重慶時時彩_A
-	private String URL_CQCP_A = "http://www.cqcp.net/game/ssc/";
-	private List<CQSSC> cpcqResults_A = new ArrayList<>();
+	private String URL_CQSSC_A = "http://www.cqcp.net/game/ssc/";
+	private List<CQSSC> cpsscResults_A = new ArrayList<>();
+	
+	// TODO 重慶時時彩_C
+	
+	// TODO 重慶時時彩_D
 	
 	// 山東11選5_A
 	private String URL_SD11XUAN5_A = "http://www.sdticai.com/find/find_syxw.asp";
 	private List<SD11XUAN5> sd11xuan5Results_A = new ArrayList<>();
 	
+	// TODO 山東11選5_C
+	
+	// TODO 山東11選5_D
+	
 	// 廣東11選5_A
 	private String URL_GD11XUAN5_A = "http://trend.caipiao.163.com/gd11xuan5/";
 	private List<GD11XUAN5> gd11xuan5Results_A = new ArrayList<>();
 	
+	// TODO 廣東11選5_C
+	
+	// TODO 廣東11選5_D
+	
 	// 江西11選5_B
 	private String URL_JX11XUAN5_B = "http://fx.cp2y.com/jx11x5kj/";
 	private List<JX11XUAN5> jx11xuan5Results_B = new ArrayList<>();
+	
+	// 江西11選5_C
+	
+	// 江西11選5_D
 
 	private void start() {
 		long startTime = 0;
@@ -58,14 +80,19 @@ public class TestGetLotteryResult {
 		showResults(tjsscResults_D);
 		
 		startTime = System.currentTimeMillis();
-		getXjflcp_A();
-		System.out.println(">>>>> 新疆時時彩_A [" + URL_XJFLCP_A + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
-		showResults(xjflcpResults_A);
+		getXJSSC_A();
+		System.out.println(">>>>> 新疆時時彩_A [" + URL_XJSSC_A + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
+		showResults(xjsscResults_A);
 		
 		startTime = System.currentTimeMillis();
-		getCqcp_A();
-		System.out.println(">>>>> 重慶時時彩_A [" + URL_CQCP_A + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
-		showResults(cpcqResults_A);
+		getXJSSC_C();
+		System.out.println(">>>>> 新疆時時彩_C [" + URL_XJSSC_C + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
+		showResults(xjsscResults_C);
+		
+		startTime = System.currentTimeMillis();
+		getCPSSC_A();
+		System.out.println(">>>>> 重慶時時彩_A [" + URL_CQSSC_A + "], 取得中獎號碼總花費時間: " + (System.currentTimeMillis() - startTime) + " ms <<<<<");
+		showResults(cpsscResults_A);
 		
 		startTime = System.currentTimeMillis();
 		getSD11XUAN5_A();
@@ -198,14 +225,14 @@ public class TestGetLotteryResult {
 		}
 	}
 
-	private void getXjflcp_A() {
+	private void getXJSSC_A() {
 		long startTime = 0;
 		try {
 			startTime = System.currentTimeMillis();
 			
-			Document doc = getDocumentWithUrl(URL_XJFLCP_A);
+			Document doc = getDocumentWithUrl(URL_XJSSC_A);
 			
-			System.out.println("----- 連線到網址 [" + URL_XJFLCP_A + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
+			System.out.println("----- 連線到網址 [" + URL_XJSSC_A + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 
 			Element tableOfResult = doc.select("table.kj_tab").first();
 			Element tbodyOfResult = tableOfResult.select("tbody").first();
@@ -255,7 +282,7 @@ public class TestGetLotteryResult {
 							break;
 					}
 				}
-				xjflcpResults_A.add(xjflcpResult);
+				xjsscResults_A.add(xjflcpResult);
 			}
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
@@ -264,14 +291,84 @@ public class TestGetLotteryResult {
 		}
 	}
 
-	private void getCqcp_A() {
+	private void getXJSSC_C() {
+		long startTime = 0;
+		try {
+			startTime = System.currentTimeMillis();
+			
+			Document doc = getDocumentWithUrl(URL_XJSSC_C);
+			
+			System.out.println("----- 連線到網址 [" + URL_XJSSC_C + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
+
+			Element tableOfResult = doc.select("table.dt").first();
+			if (tableOfResult == null) {
+				System.err.println(doc);
+				return;
+			}
+			
+			Element tbodyOfResult = tableOfResult.select("tbody").first();
+			Elements trsOfResult = tbodyOfResult.select("tr");
+			
+			for (int i = 1; i < trsOfResult.size(); i++) {
+				XJSSC xjsscResult = new XJSSC();
+				
+				Element trOfResult = trsOfResult.get(i);
+				Elements tdsOfResult = trOfResult.select("td");
+				for (int j = 0; j < tdsOfResult.size(); j++) {
+					Element tdOfResult = tdsOfResult.get(j);
+					String data = tdOfResult.text();
+					
+					switch (j) {
+						case 0:
+							xjsscResult.setIssueNo(data);
+							break;
+
+						case 1:
+						case 2:
+						case 3:
+						case 4:
+						case 5:
+							xjsscResult.addLotteryNo(data);
+							break;
+						
+						case 6:
+							xjsscResult.setType(data);
+							break;
+							
+						case 7:
+							xjsscResult.setSumOf3Star(data);
+							break;
+							
+						case 8:
+							xjsscResult.setBigSmallOf2Star(data);
+							break;
+							
+						case 9:
+							xjsscResult.setOddEvenOf2Star(data);
+							break;
+							
+						case 10:
+							xjsscResult.setSumOf2Star(data);
+							break;
+					}
+				}
+				xjsscResults_C.add(xjsscResult);
+			}	
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void getCPSSC_A() {
 		long startTime = 0;
 		try {
 			startTime = System.currentTimeMillis();
 
-			Document doc = getDocumentWithUrl(URL_CQCP_A);
+			Document doc = getDocumentWithUrl(URL_CQSSC_A);
 
-			System.out.println("----- 連線到網址 [" + URL_CQCP_A + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
+			System.out.println("----- 連線到網址 [" + URL_CQSSC_A + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 			
 			Element divOfResult = doc.select("div.ssc25").first();
 			Elements ulsOfResult = divOfResult.select("ul");
@@ -285,12 +382,10 @@ public class TestGetLotteryResult {
 					Element lsOfResult = lisOfResult.get(j);
 					String data = lsOfResult.text();
 					switch (j) {
-						// 期號
 						case 0:
 							cqcpResult.setIssueNo(data);
 							break;
 							
-						// 號碼
 						case 1:
 							String[] lotteryNos = data.split("-");
 							for (String lotteryNo : lotteryNos) {
@@ -298,43 +393,36 @@ public class TestGetLotteryResult {
 							}
 							break;
 							
-						// 和值:
 						case 2:
 							cqcpResult.setSumOfTotal(Integer.parseInt(data));
 							break;
 							
-						// 前三
 						case 3:
 							cqcpResult.setHeaderThree(data);
 							break;
 							
-						// 中三
 						case 4:
 							cqcpResult.setMiddleThree(data);
 							break;
 							
-						// 后三
 						case 5:
 							cqcpResult.setTailerThree(data);
 							break;
 						
-						// 后三和
 						case 6:
 							cqcpResult.setSumOfTailerThree(Integer.parseInt(data));
 							break;
 							
-						// 后二和
 						case 7:
 							cqcpResult.setSumOfTailerTwo(Integer.parseInt(data));
 							break;
 							
-						// 大小單雙
 						case 8:
 							cqcpResult.setBigSmallOddEven(data);
 							break;
 					}
 				}
-				cpcqResults_A.add(cqcpResult);
+				cpsscResults_A.add(cqcpResult);
 			}
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
