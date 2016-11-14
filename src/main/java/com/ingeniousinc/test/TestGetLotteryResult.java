@@ -250,6 +250,7 @@ public class TestGetLotteryResult {
 			System.out.println(">>>>> 新疆時時彩_A [" + url + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 
 			Element tableOfResult = doc.select("table.kj_tab").first();
+			
 			int currentRetryTimes = 1;
 			boolean isFailed = false;
 			while (tableOfResult == null && currentRetryTimes++ <= RETRY_TIMES) {
@@ -334,6 +335,7 @@ public class TestGetLotteryResult {
 			System.out.println(">>>>> 重慶時時彩_A [" + url + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 			
 			Element divOfResult = doc.select("div.ssc25").first();
+			
 			int currentRetryTimes = 1;
 			boolean isFailed = false;
 			while (divOfResult == null && currentRetryTimes++ <= RETRY_TIMES) {
@@ -422,6 +424,7 @@ public class TestGetLotteryResult {
 			System.out.println(">>>>> 山東11選5_A [" + url + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 			
 			Element tableOfResult = doc.select("table[bgcolor=\"#006599\"]").first();
+			
 			int currentRetryTimes = 1;
 			boolean isFailed = false;
 			while (tableOfResult == null && currentRetryTimes++ <= RETRY_TIMES) {
@@ -478,6 +481,7 @@ public class TestGetLotteryResult {
 			System.out.println(">>>>> 廣東11選5_A [" + url + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 
 			Element tableOfResult = doc.select("table.dataTable").first();
+			
 			int currentRetryTimes = 1;
 			boolean isFailed = false;
 			while (tableOfResult == null && currentRetryTimes++ <= RETRY_TIMES) {
@@ -557,6 +561,7 @@ public class TestGetLotteryResult {
 			System.out.println(">>>>> 江西11選5_A [" + url + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 			
 			Element tableOfResult = doc.select("table.kj-detail-table").first();
+			
 			int currentRetryTimes = 1;
 			boolean isFailed = false;
 			while (tableOfResult == null && currentRetryTimes++ <= RETRY_TIMES) {
@@ -734,6 +739,7 @@ public class TestGetLotteryResult {
 			System.out.println(">>>>> " + name + " [" + url + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 			
 			Element tableOfResult = doc.select("table.today").first();
+			
 			int currentRetryTimes = 1;
 			boolean isFailed = false;
 			while (tableOfResult == null && currentRetryTimes++ <= RETRY_TIMES) {
@@ -816,6 +822,7 @@ public class TestGetLotteryResult {
 			System.out.println(">>>>> " + name + " [" + url + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 			
 			Element divOfResults = doc.select("div.chart_table_wrapper").first();
+			
 			int currentRetryTimes = 1;
 			boolean isFailed = false;
 			while (divOfResults == null && currentRetryTimes++ <= RETRY_TIMES) {
@@ -988,6 +995,7 @@ public class TestGetLotteryResult {
 			System.out.println(">>>>> " + name + " [" + url + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 			
 			Element tableOfResult = doc.select("table.today").first();
+			
 			int currentRetryTimes = 1;
 			boolean isFailed = false;
 			while (tableOfResult == null && currentRetryTimes++ <= RETRY_TIMES) {
