@@ -207,7 +207,7 @@ public class TestGetLotteryResult {
 		System.out.println(">>>>> " + NAME_GD11XUAN5_A + " [" + URL_GD11XUAN5_A + "], 取得中獎號碼, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 		
 		startTime = System.currentTimeMillis();
-		getGD11XUAN5_B();
+		get11xuan5FromTrendBaidu(GD11XUAN5.class, NAME_GD11XUAN5_B, URL_GD11XUAN5_B, gd11xuan5_B);
 		System.out.println(">>>>> " + NAME_GD11XUAN5_B + " [" + URL_GD11XUAN5_B + "], 取得中獎號碼, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 		
 		startTime = System.currentTimeMillis();
@@ -227,7 +227,7 @@ public class TestGetLotteryResult {
 		System.out.println(">>>>> " + NAME_JX11XUAN5_A + " [" + URL_JX11XUAN5_A + "], 取得中獎號碼, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 		
 		startTime = System.currentTimeMillis();
-		getJX11XUAN5_B();
+		get11xuan5FromTrendBaidu(JX11XUAN5.class, NAME_JX11XUAN5_B, URL_JX11XUAN5_B, jx11xuan5_B);
 		System.out.println(">>>>> " + NAME_JX11XUAN5_B + " [" + URL_JX11XUAN5_B + "], 取得中獎號碼, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 		
 		startTime = System.currentTimeMillis();
@@ -238,7 +238,7 @@ public class TestGetLotteryResult {
 		getJX11XUAN5_D();
 		System.out.println(">>>>> " + NAME_JX11XUAN5_D + " [" + URL_JX11XUAN5_D + "], 取得中獎號碼, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 	}
-
+	
 	private void getTJSSC_C() {
 		long startTime = 0;
 		try {
@@ -1370,6 +1370,95 @@ public class TestGetLotteryResult {
 							
 						case 10:
 							method = cls.getDeclaredMethod("setSumOf2Star", getStringParameter());
+							method.invoke(instance, data);
+							break;
+					}
+				}
+				((List<Object>) resultList).add(instance);
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	private void get11xuan5FromTrendBaidu(Class<?> clz, String name, String url, Object resultList) {
+		long startTime = 0;
+		try {
+			startTime = System.currentTimeMillis();
+	
+			Document doc = getDocument(url);
+	
+			System.out.println(">>>>> " + name + " [" + url + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
+			
+			Element divOfResults = doc.select("div.chart_table_wrapper").first();
+			int currentRetryTimes = 1;
+			boolean isFailed = false;
+			while (divOfResults == null && currentRetryTimes++ <= RETRY_TIMES) {
+				System.out.println("抓取失敗, 5秒後, 嘗試重新取得...");
+				try {
+					Thread.sleep(RETRY_INTERVAL);
+				} catch (InterruptedException e) {}
+				doc = getDocument(url, createCookieForCaipiaokong());
+				divOfResults = doc.select("div.chart_table_wrapper").first();
+				
+				isFailed = divOfResults == null;
+			}
+			
+			if (isFailed) {
+				System.out.println("抓取失敗...");
+				System.out.println(doc);
+				return;
+			}
+			
+			Element tableOfResults = divOfResults.select("table.chart_table").first();
+			Element tbodyOfResults = tableOfResults.select("tbody").first();
+			Elements trsOfResults = tbodyOfResults.select("tr");
+					
+			allDatasLoop:
+			for (int i = 0; i < trsOfResults.size(); i++) {
+				Class<?> cls = Class.forName(clz.getName());
+				Object instance = cls.newInstance();
+				
+				Element trOrResult = trsOfResults.get(i);
+				Elements tdsOfResult = trOrResult.select("td");
+				for (int j = 0; j < tdsOfResult.size(); j++) {
+					Element tdOfResult = tdsOfResult.get(j);
+					String data = tdOfResult.text();
+					
+					Method method = null;
+					switch (j) {
+						case 0:
+							if (data.equals("总次数")) {
+								break allDatasLoop;
+							}
+							break;
+					
+						case 1:
+							method = cls.getDeclaredMethod("setIssueNo", getStringParameter());
+							method.invoke(instance, data);
+							break;
+							
+						case 2:
+						case 3:
+						case 4:
+						case 5:
+						case 6:
+							method = cls.getDeclaredMethod("addLotteryNo", getStringParameter());
 							method.invoke(instance, data);
 							break;
 					}
