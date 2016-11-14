@@ -983,17 +983,19 @@ public class TestGetLotteryResult {
 		}
 	}
 	
+	/**
+	 * Caipiaokong 這個網站常常連過去後, 會回傳請註冊或登錄的網頁, 所以塞個 cookie 給他, 不過 cookie 要常換
+	 */
 	private Map<String, String> createCookieForCaipiaokong() {
 		Map<String, String> cookie = new HashMap<String, String>();
 		cookie.put("caipiaokong_4891_saltkey", "dmbgCWDB");
 		cookie.put("caipiaokong_4891_lastvisit", "1478594642");
-		cookie.put("caipiaokong_4891_caipiaokong_ySn", "1");
-		cookie.put("aliyungf_tc", "AQAAACukZw30uQEAH7P7PP7uow8Wx4Gz");
-		cookie.put("acw_tc", "AQAAAF4GchnofwIAH7P7PBo1BeMPzy0e");
-		cookie.put("caipiaokong_4891_caipiaokong_ZXC", "1");
-		cookie.put("caipiaokong_4891_lastact", "1478768045%09index.php%09tjssc");
-		cookie.put("Hm_lvt_1fa650cb7d8eae53d0e6fbd8aec3eb67", "1478598245,1478741515");
-		cookie.put("Hm_lpvt_1fa650cb7d8eae53d0e6fbd8aec3eb67", "1478768047");
+		cookie.put("aliyungf_tc", "AQAAAB3dfx9KzQkAH7P7PD2ROyFYtBWp");
+		cookie.put("acw_tc", "AQAAAOuTH1gX4AkAH7P7PFvxSlKSVCTp");
+		cookie.put("caipiaokong_4891_caipiaokong_MXj", "1");
+		cookie.put("caipiaokong_4891_lastact", "1479092303%09index.php%09jxsyxw");
+		cookie.put("Hm_lvt_1fa650cb7d8eae53d0e6fbd8aec3eb67", "1478598245,1478741515,1479091481");
+		cookie.put("Hm_lpvt_1fa650cb7d8eae53d0e6fbd8aec3eb67", "1479092304");
 		return cookie;
 	}
 
