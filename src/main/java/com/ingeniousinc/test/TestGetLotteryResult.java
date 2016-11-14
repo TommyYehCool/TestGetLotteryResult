@@ -244,12 +244,27 @@ public class TestGetLotteryResult {
 		try {
 			startTime = System.currentTimeMillis();
 			
-			Document doc = getDocument(URL_XJSSC_A);
+			String url = URL_XJSSC_A;
+			Document doc = getDocument(url);
 			
-			System.out.println(">>>>> 新疆時時彩_A [" + URL_XJSSC_A + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
+			System.out.println(">>>>> 新疆時時彩_A [" + url + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 
 			Element tableOfResult = doc.select("table.kj_tab").first();
-			if (tableOfResult == null) {
+			int currentRetryTimes = 1;
+			boolean isFailed = false;
+			while (tableOfResult == null && currentRetryTimes++ <= RETRY_TIMES) {
+				System.out.println("抓取失敗, 5秒後, 嘗試重新取得...");
+				try {
+					Thread.sleep(RETRY_INTERVAL);
+				} catch (InterruptedException e) {}
+				doc = getDocument(url);
+				tableOfResult = doc.select("table.kj_tab").first();
+				
+				isFailed = tableOfResult == null;
+			}
+			
+			if (isFailed) {
+				System.out.println("抓取失敗...");
 				System.out.println(doc);
 				return;
 			}
@@ -313,12 +328,27 @@ public class TestGetLotteryResult {
 		try {
 			startTime = System.currentTimeMillis();
 
-			Document doc = getDocument(URL_CQSSC_A);
+			String url = URL_CQSSC_A;
+			Document doc = getDocument(url);
 
-			System.out.println(">>>>> 重慶時時彩_A [" + URL_CQSSC_A + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
+			System.out.println(">>>>> 重慶時時彩_A [" + url + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 			
 			Element divOfResult = doc.select("div.ssc25").first();
-			if (divOfResult == null) {
+			int currentRetryTimes = 1;
+			boolean isFailed = false;
+			while (divOfResult == null && currentRetryTimes++ <= RETRY_TIMES) {
+				System.out.println("抓取失敗, 5秒後, 嘗試重新取得...");
+				try {
+					Thread.sleep(RETRY_INTERVAL);
+				} catch (InterruptedException e) {}
+				doc = getDocument(url);
+				divOfResult = doc.select("div.ssc25").first();
+				
+				isFailed = divOfResult == null;
+			}
+			
+			if (isFailed) {
+				System.out.println("抓取失敗...");
 				System.out.println(doc);
 				return;
 			}
@@ -386,12 +416,27 @@ public class TestGetLotteryResult {
 		try {
 			startTime = System.currentTimeMillis();
 
-			Document doc = getDocument(URL_SD11XUAN5_A);
+			String url = URL_SD11XUAN5_A;
+			Document doc = getDocument(url);
 			
-			System.out.println(">>>>> 山東11選5_A [" + URL_SD11XUAN5_A + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
+			System.out.println(">>>>> 山東11選5_A [" + url + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 			
 			Element tableOfResult = doc.select("table[bgcolor=\"#006599\"]").first();
-			if (tableOfResult == null) {
+			int currentRetryTimes = 1;
+			boolean isFailed = false;
+			while (tableOfResult == null && currentRetryTimes++ <= RETRY_TIMES) {
+				System.out.println("抓取失敗, 5秒後, 嘗試重新取得...");
+				try {
+					Thread.sleep(RETRY_INTERVAL);
+				} catch (InterruptedException e) {}
+				doc = getDocument(url);
+				tableOfResult = doc.select("table[bgcolor=\"#006599\"]").first();
+				
+				isFailed = tableOfResult == null;
+			}
+			
+			if (isFailed) {
+				System.out.println("抓取失敗...");
 				System.out.println(doc);
 				return;
 			}
@@ -427,12 +472,27 @@ public class TestGetLotteryResult {
 		try {
 			startTime = System.currentTimeMillis();
 
-			Document doc = getDocument(URL_GD11XUAN5_A);
+			String url = URL_GD11XUAN5_A;
+			Document doc = getDocument(url);
 
-			System.out.println(">>>>> 廣東11選5_A [" + URL_GD11XUAN5_A + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
+			System.out.println(">>>>> 廣東11選5_A [" + url + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 
 			Element tableOfResult = doc.select("table.dataTable").first();
-			if (tableOfResult == null) {
+			int currentRetryTimes = 1;
+			boolean isFailed = false;
+			while (tableOfResult == null && currentRetryTimes++ <= RETRY_TIMES) {
+				System.out.println("抓取失敗, 5秒後, 嘗試重新取得...");
+				try {
+					Thread.sleep(RETRY_INTERVAL);
+				} catch (InterruptedException e) {}
+				doc = getDocument(url);
+				tableOfResult = doc.select("table.dataTable").first();
+				
+				isFailed = tableOfResult == null;
+			}
+			
+			if (isFailed) {
+				System.out.println("抓取失敗...");
 				System.out.println(doc);
 				return;
 			}
@@ -491,15 +551,31 @@ public class TestGetLotteryResult {
 		try {
 			startTime = System.currentTimeMillis();
 	
-			Document doc = getDocument(URL_JX11XUAN5_A);
+			String url = URL_JX11XUAN5_A;
+			Document doc = getDocument(url);
 	
-			System.out.println(">>>>> 江西11選5_A [" + URL_JX11XUAN5_A + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
+			System.out.println(">>>>> 江西11選5_A [" + url + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 			
 			Element tableOfResult = doc.select("table.kj-detail-table").first();
-			if (tableOfResult == null) {
+			int currentRetryTimes = 1;
+			boolean isFailed = false;
+			while (tableOfResult == null && currentRetryTimes++ <= RETRY_TIMES) {
+				System.out.println("抓取失敗, 5秒後, 嘗試重新取得...");
+				try {
+					Thread.sleep(RETRY_INTERVAL);
+				} catch (InterruptedException e) {}
+				doc = getDocument(url);
+				tableOfResult = doc.select("table.kj-detail-table").first();
+				
+				isFailed = tableOfResult == null;
+			}
+			
+			if (isFailed) {
+				System.out.println("抓取失敗...");
 				System.out.println(doc);
 				return;
 			}
+
 			Element tbodyOfResult = tableOfResult.select("tbody").first();
 			Elements trsOfResults = tbodyOfResult.select("tr");
 
