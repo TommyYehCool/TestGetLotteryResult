@@ -247,7 +247,7 @@ public class TestGetLotteryResult {
 			String url = URL_XJSSC_A;
 			Document doc = getDocument(url);
 			
-			System.out.println(">>>>> 新疆時時彩_A [" + url + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
+			System.out.println(">>>>> " + NAME_XJSSC_A + " [" + url + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 
 			Element tableOfResult = doc.select("table.kj_tab").first();
 			
@@ -332,7 +332,7 @@ public class TestGetLotteryResult {
 			String url = URL_CQSSC_A;
 			Document doc = getDocument(url);
 
-			System.out.println(">>>>> 重慶時時彩_A [" + url + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
+			System.out.println(">>>>> " + NAME_CQSSC_A + " [" + url + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 			
 			Element divOfResult = doc.select("div.ssc25").first();
 			
@@ -421,7 +421,7 @@ public class TestGetLotteryResult {
 			String url = URL_SD11XUAN5_A;
 			Document doc = getDocument(url);
 			
-			System.out.println(">>>>> 山東11選5_A [" + url + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
+			System.out.println(">>>>> " + NAME_SD11XUAN5_A + " [" + url + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 			
 			Element tableOfResult = doc.select("table[bgcolor=\"#006599\"]").first();
 			
@@ -478,7 +478,7 @@ public class TestGetLotteryResult {
 			String url = URL_GD11XUAN5_A;
 			Document doc = getDocument(url);
 
-			System.out.println(">>>>> 廣東11選5_A [" + url + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
+			System.out.println(">>>>> " + NAME_GD11XUAN5_A + " [" + url + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 
 			Element tableOfResult = doc.select("table.dataTable").first();
 			
@@ -558,7 +558,7 @@ public class TestGetLotteryResult {
 			String url = URL_JX11XUAN5_A;
 			Document doc = getDocument(url);
 	
-			System.out.println(">>>>> 江西11選5_A [" + url + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
+			System.out.println(">>>>> " + NAME_JX11XUAN5_A + " [" + url + "], 取得 Document, time-spent: " + (System.currentTimeMillis() - startTime) + " ms");
 			
 			Element tableOfResult = doc.select("table.kj-detail-table").first();
 			
@@ -1098,6 +1098,7 @@ public class TestGetLotteryResult {
 		return doc;
 	}
 
+	@SuppressWarnings("unused")
 	private <T> void showResults(List<T> results) {
 		for (T result : results) {
 			System.out.println(result);
